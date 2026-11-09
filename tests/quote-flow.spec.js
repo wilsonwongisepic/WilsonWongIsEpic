@@ -62,9 +62,23 @@ async function runFlow(page, width) {
   await page.setViewportSize({ width: width, height: width === 390 ? 844 : 900 });
   await page.goto("/sharp/");
   await expect(page.locator("#choose-realtor")).toBeVisible();
+  await expect(page.locator("h1")).toHaveText("Appreciation that lasts forever.");
+  await expect(page.locator("#step-type")).toContainText("Every time they reach for it, their appreciation lasts forever, just like Cutco's guarantee.");
+  await expect(page.locator("#step-type")).toContainText("Backed by Cutco's Forever Guarantee.");
+  const introSteps = page.locator("#expect-intro");
+  await expect(introSteps.locator("li")).toHaveCount(5);
+  await expect(introSteps.locator("strong").nth(0)).toHaveText("Find your Cutco gift");
+  await expect(introSteps.locator("strong").nth(1)).toHaveText("Place your order");
+  await expect(introSteps.locator("strong").nth(2)).toHaveText("Approve your proof");
+  await expect(introSteps.locator("strong").nth(3)).toHaveText("Receive your gifts");
+  await expect(introSteps.locator("strong").nth(4)).toHaveText("Grab, go, give");
+  await expect(introSteps).toContainText("mixed and matched however you like");
+  await expect(introSteps).toContainText("Hand your client a gift they'll use for a lifetime.");
   await expectNoPrices(page);
   await noSidewaysScroll(page);
   await shot(page, "quote-" + width + "-1-type.png");
+  await page.locator("#hero-copy").screenshot({ path: "/opt/cursor/artifacts/quote-hero-" + width + ".png" });
+  await introSteps.screenshot({ path: "/opt/cursor/artifacts/quote-steps-" + width + ".png" });
 
   await page.locator("#choose-realtor").click();
   await expect(page.locator("#catalog-title")).toBeVisible();
@@ -158,6 +172,20 @@ async function runFlow(page, width) {
   await expect(page.locator("#tray-count")).toHaveText("26 gifts");
   await page.locator("#continue-details").click();
   await expect(page.locator("#step-quote")).toBeVisible();
+  const expectSection = page.locator("#what-to-expect");
+  await expect(expectSection).toBeVisible();
+  await expect(expectSection.locator("li")).toHaveCount(5);
+  await expect(expectSection.locator("strong").nth(0)).toHaveText("Find your Cutco gift");
+  await expect(expectSection.locator("strong").nth(1)).toHaveText("Place your order");
+  await expect(expectSection.locator("strong").nth(2)).toHaveText("Approve your proof");
+  await expect(expectSection.locator("strong").nth(3)).toHaveText("Receive your gifts");
+  await expect(expectSection.locator("strong").nth(4)).toHaveText("Grab, go, give");
+  await expect(expectSection).toContainText("within 30 days");
+  await expect(expectSection).toContainText("tracking emailed");
+  await expect(page.locator(".notes")).toContainText("Engraved orders typically arrive within 30 days, including 10-14 business days for engraving.");
+  await expectSection.scrollIntoViewIfNeeded();
+  await noSidewaysScroll(page);
+  await expectSection.screenshot({ path: "/opt/cursor/artifacts/quote-expect-" + width + ".png" });
   await expect(page.locator("#quote-number")).toHaveText(/WW-\d{8}-[A-HJ-NP-Z2-9]{4}/);
   const quoteNumber = (await page.locator("#quote-number").innerText()).trim();
 

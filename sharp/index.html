@@ -228,6 +228,27 @@
     .totals .grand { font-family: Fraunces, Georgia, serif; font-size: 1.45rem; margin: 10px 0 0; }
     .notes { color: var(--muted); font-size: .92rem; }
     .notes li { margin: 0 0 8px; }
+    .guarantee { color: var(--brand-deep); font-size: .92rem; font-weight: 600; margin: 0 0 1em; }
+    .expect { margin: 8px 0 28px; }
+    .expect h2 { font-size: 1.45rem; }
+    .expect ol {
+      list-style: none; margin: 0; padding: 0; display: grid; gap: 16px;
+      counter-reset: expect;
+    }
+    .expect li {
+      min-width: 0; margin: 0; counter-increment: expect;
+      border-top: 2px solid var(--brand); padding-top: 12px;
+    }
+    .expect li::before {
+      content: counter(expect);
+      display: block; margin-bottom: 6px;
+      font-family: Fraunces, Georgia, serif; font-size: 1.35rem; color: var(--brand);
+    }
+    .expect li strong { display: block; font-size: 1.02rem; margin-bottom: 4px; }
+    .expect li p { margin: 0; color: var(--muted); font-size: .92rem; }
+    @media (min-width: 900px) {
+      .expect ol { grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 16px; }
+    }
     .callout {
       background: var(--brand); color: #fff; border-radius: 20px; padding: 22px;
       display: grid; gap: 12px; margin: 22px 0;
@@ -270,8 +291,13 @@
   <main>
     <section class="step" id="step-type">
       <div class="wrap">
-        <span class="eyebrow">Closing gifts · Canada</span>
-        <h1>A gift they keep using.</h1>
+        <div id="hero-copy">
+          <span class="eyebrow">Closing gifts · Canada</span>
+          <h1>Appreciation that lasts forever.</h1>
+          <p class="lead">Every time they reach for it, their appreciation lasts forever, just like Cutco's guarantee.</p>
+          <p class="guarantee">Backed by Cutco's Forever Guarantee.</p>
+          <div id="expect-top"></div>
+        </div>
         <p class="lead">For realtors, mortgage and home-lending professionals, developers, and other businesses that want a gift they can reorder. Mix any gifts. The order needs 6 in total, and each item can be as few as one. Prices stay hidden until we know who the quote is for. Canada only.</p>
         <p class="lead" id="wilson-contact"></p>
         <div class="choice-grid">

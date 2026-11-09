@@ -803,7 +803,7 @@ function renderQuote() {
   const notes = el("ul", { class: "notes" });
   [
     "A new logo has a one-time $65 set-up fee. Wilson may waive it.",
-    "Engraved orders add 10 to 14 business days.",
+    "Engraved orders typically arrive within 30 days, including 10-14 business days for engraving.",
     "Prices are estimates from the Canada Volume Specials sheet (valid through 1/27). Wilson confirms the final quote.",
     "You pay in full. This page never collects card or payment details.",
     "The minimum of 6 is for the whole order, so items can be mixed. Any quantity under 10 uses the 10+ price. Higher quantities use the matching volume column."
@@ -817,6 +817,8 @@ function renderQuote() {
     li.textContent = "Block and luxury sets are priced without shipping. The shipping line is still an estimate until Wilson confirms it.";
     notes.append(li);
   }
+
+  const expectBlock = expectSection("what-to-expect");
 
   const callout = el("div", { class: "callout" });
   const callTitle = el("h2");
@@ -851,7 +853,7 @@ function renderQuote() {
   const status = el("p", { class: "form-note", id: "send-status", role: "status" });
   send.addEventListener("click", () => sendQuote(send, status, confirmation));
 
-  mount.append(top, lines, totals, notes, callout, actions, confirmation, status);
+  mount.append(top, lines, totals, expectBlock, notes, callout, actions, confirmation, status);
   fillFigures(quote);
 }
 
@@ -923,7 +925,7 @@ async function sendQuote(button, status, confirmation) {
     "Shipping (CAD)": quote.shippingPending ? "Pending, Wilson will confirm" : moneyNumber(quote.shippingCents),
     "Tax (CAD)": taxSummary(quote),
     "Total (CAD)": moneyNumber(quote.totalCents),
-    "Notes": "New logo set-up is a one-time $65 fee Wilson may waive. Engraved orders add 10 to 14 business days. Prices are estimates and Wilson confirms the final quote. The client pays in full. No payment was collected on the website."
+    "Notes": "New logo set-up is a one-time $65 fee Wilson may waive. Engraved orders typically arrive within 30 days, including 10-14 business days for engraving. Prices are estimates and Wilson confirms the final quote. The client pays in full. No payment was collected on the website."
   };
   try {
     const response = await fetch("https://formsubmit.co/ajax/executive.wilsonwong@gmail.com", {
@@ -982,6 +984,32 @@ function bind() {
   fillWilsonContact();
 }
 
+const EXPECT_STEPS = [
+  ["Find your Cutco gift", "Browse and pick the gifts you love, 6 or more, mixed and matched however you like."],
+  ["Place your order", "Get your price and send your request. Wilson calls to confirm your gifts and engraving and share any current deals."],
+  ["Approve your proof", "Your invoice and engraving proof arrive in your inbox within a few business days."],
+  ["Receive your gifts", "Your whole order arrives at once within 30 days, delivered to your office and signed for, with tracking emailed when it's on its way."],
+  ["Grab, go, give", "Hand your client a gift they'll use for a lifetime. Every time they reach for it, your appreciation lasts forever."]
+];
+
+function expectSection(id) {
+  const section = el("section", { class: "expect", id: id });
+  const title = el("h2");
+  title.textContent = "What to expect";
+  const list = el("ol");
+  EXPECT_STEPS.forEach((pair) => {
+    const item = el("li");
+    const name = el("strong");
+    name.textContent = pair[0];
+    const detail = el("p");
+    detail.textContent = pair[1];
+    item.append(name, detail);
+    list.append(item);
+  });
+  section.append(title, list);
+  return section;
+}
+
 function fillWilsonContact() {
   const node = document.getElementById("wilson-contact");
   if (!node) return;
@@ -991,6 +1019,8 @@ function fillWilsonContact() {
   const mail = el("a", { href: "mailto:" + WILSON_EMAIL });
   mail.textContent = WILSON_EMAIL;
   node.append("Call or text ", tel, " or email ", mail, ".");
+  const expectMount = document.getElementById("expect-top");
+  if (expectMount) expectMount.replaceChildren(expectSection("expect-intro"));
 }
 
 bind();
