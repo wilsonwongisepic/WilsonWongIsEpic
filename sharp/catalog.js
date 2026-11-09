@@ -2,7 +2,7 @@
 window.CUTCO_CATALOG = {
   "source": "Cutco Gifts 2026 Price List, Canada Volume Specials, valid through 1/27",
   "currency": "CAD",
-  "minQty": 6,
+  "orderMin": 6,
   "items": [
     {
       "base": "1503",

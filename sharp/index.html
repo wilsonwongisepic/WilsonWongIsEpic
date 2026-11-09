@@ -58,6 +58,8 @@
       text-transform: uppercase; color: var(--accent); margin-bottom: 12px;
     }
     .lead { font-size: 1.08rem; color: var(--muted); max-width: 62ch; }
+    #wilson-contact { overflow-wrap: anywhere; }
+    #wilson-contact a { color: var(--brand); font-weight: 600; }
     .btn {
       display: inline-block; padding: 14px 26px; border-radius: 999px; font-weight: 600;
       text-decoration: none; text-align: center; cursor: pointer;
@@ -231,7 +233,8 @@
       display: grid; gap: 12px; margin: 22px 0;
     }
     .callout h2 { color: #fff; font-size: 1.7rem; }
-    .callout p { color: color-mix(in srgb, #fff 86%, transparent); margin: 0; }
+    .callout p { color: color-mix(in srgb, #fff 86%, transparent); margin: 0; overflow-wrap: anywhere; }
+    .callout a:not(.btn) { color: #fff; font-weight: 600; }
     .callout .btn-primary { background: var(--cream); color: var(--brand-deep); border-color: var(--cream); }
     .callout .btn-primary:hover { background: #fff; }
     .actions { display: flex; flex-wrap: wrap; gap: 10px; }
@@ -269,7 +272,8 @@
       <div class="wrap">
         <span class="eyebrow">Closing gifts · Canada</span>
         <h1>A gift they keep using.</h1>
-        <p class="lead">For realtors, mortgage and home-lending professionals, developers, and other businesses that want a gift they can reorder. Six is the minimum of each item. Prices stay hidden until we know who the quote is for. Canada only.</p>
+        <p class="lead">For realtors, mortgage and home-lending professionals, developers, and other businesses that want a gift they can reorder. Mix any gifts. The order needs 6 in total, and each item can be as few as one. Prices stay hidden until we know who the quote is for. Canada only.</p>
+        <p class="lead" id="wilson-contact"></p>
         <div class="choice-grid">
           <button class="card choice" type="button" id="choose-realtor" data-type="Realtor">
             <span class="eyebrow">Realtor</span>
@@ -289,7 +293,7 @@
       <div class="wrap">
         <span class="eyebrow" id="catalog-kicker">Your gifts</span>
         <h2 id="catalog-title">Choose the gifts</h2>
-        <p class="lead" id="catalog-lead">Pick a colour, a gift box where one is offered, and a quantity of at least six. Prices are not shown on this step.</p>
+        <p class="lead" id="catalog-lead">Pick a colour, a gift box where one is offered, and how many you want. One is fine for an item. The order needs 6 gifts in total. Prices are not shown on this step.</p>
         <p class="no-print"><button class="btn btn-ghost small" type="button" id="change-type">Change gifting type</button></p>
         <div id="feature"></div>
         <div class="tools">
@@ -301,7 +305,7 @@
       </div>
       <div class="tray" id="tray">
         <div class="tray-inner">
-          <p><strong id="tray-count">No gifts yet</strong><span id="tray-sub" class="hint">Minimum 6 of each item</span></p>
+          <p><strong id="tray-count">No gifts yet</strong><span id="tray-sub" class="hint">6 gifts minimum for the order. Mix any items.</span></p>
           <button class="btn btn-primary small" type="button" id="continue-details" disabled>Continue</button>
         </div>
       </div>
@@ -311,12 +315,13 @@
       <div class="wrap">
         <span class="eyebrow">Your details</span>
         <h2>Where should Wilson send this?</h2>
-        <p class="lead">Pricing is shown only after your name, business, phone, email, and province are filled in. Canadian provinces and territories only. This page does not take payment.</p>
+        <p class="lead">Pricing is shown only after the order has at least 6 gifts and your name, business, phone, email, and province are filled in. You can mix any items. Canadian provinces and territories only. This page does not take payment.</p>
+        <p class="form-note" id="order-minimum" role="status"></p>
         <form class="details" id="details-form" novalidate>
           <label class="field"><span>First name</span><input id="firstName" name="firstName" autocomplete="given-name" required><small class="err" id="err-firstName"></small></label>
           <label class="field"><span>Last name</span><input id="lastName" name="lastName" autocomplete="family-name" required><small class="err" id="err-lastName"></small></label>
           <label class="field wide"><span>Business name</span><input id="business" name="business" autocomplete="organization" required><small class="err" id="err-business"></small></label>
-          <label class="field"><span>Phone</span><input id="phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" required placeholder="780-555-0148"><small class="err" id="err-phone"></small></label>
+          <label class="field"><span>Phone</span><input id="phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" required placeholder="780-915-0982"><small class="err" id="err-phone"></small></label>
           <label class="field"><span>Email</span><input id="email" name="email" type="email" autocomplete="email" required><small class="err" id="err-email"></small></label>
           <label class="field"><span>Province or territory</span>
             <select id="province" name="province" required>

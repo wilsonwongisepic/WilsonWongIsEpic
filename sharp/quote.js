@@ -1,19 +1,21 @@
 /* ============================================================
-   Wilson: two settings live in this file. Nothing else needs editing
-   for your phone number or the activity log.
+   Wilson: settings live in this file.
 
    WILSON_PHONE
-   Placeholder until you replace it with your real number.
-   Example: "780-555-0148"
-   The Call button builds its tel: link from this value.
+   Shown on the call button. The tel: link is +1 plus these digits.
+
+   WILSON_EMAIL
+   Shown next to the call button and used for the quote email.
 
    TRACKING_ENDPOINT
    Leave this as "" until the Google Sheet web app is deployed.
    Then paste that URL between the quotes.
    While it is empty, the page does not send tracking.
    ============================================================ */
-const WILSON_PHONE = "000-000-0000";
+const WILSON_PHONE = "780-915-0982";
+const WILSON_EMAIL = "executive.wilsonwong@gmail.com";
 const TRACKING_ENDPOINT = "";
+const ORDER_MIN = (window.CUTCO_CATALOG && window.CUTCO_CATALOG.orderMin) || 6;
 
 const EVENTS = {
   pageView: "page_view",
@@ -205,13 +207,14 @@ function validEmail(value) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(value || "").trim());
 }
 
-function phoneIsPlaceholder(value) {
-  const digits = String(value || "").replace(/\D/g, "");
-  return !digits || /^0+$/.test(digits);
+function wilsonTel() {
+  let digits = String(WILSON_PHONE || "").replace(/\D/g, "");
+  if (digits.length === 10) digits = "1" + digits;
+  return "tel:+" + digits;
 }
 
-function telHref(value) {
-  return "tel:" + String(value || "").replace(/[^\d+]/g, "");
+function orderPieces() {
+  return state.lines.reduce((sum, line) => sum + (parseInt(line.qty, 10) || 0), 0);
 }
 
 function endpoint() {
@@ -400,11 +403,19 @@ function renderPicks() {
 
 function renderTray() {
   const count = document.getElementById("tray-count");
-  const pieces = state.lines.reduce((sum, line) => sum + line.qty, 0);
-  count.textContent = state.lines.length
-    ? state.lines.length + (state.lines.length === 1 ? " item" : " items") + " · " + pieces + " pieces"
-    : "No gifts yet";
-  document.getElementById("continue-details").disabled = state.lines.length === 0;
+  const sub = document.getElementById("tray-sub");
+  const pieces = orderPieces();
+  if (!pieces) {
+    count.textContent = "No gifts yet";
+    sub.textContent = "6 gifts minimum for the order. Mix any items.";
+  } else if (pieces < ORDER_MIN) {
+    count.textContent = pieces + " of 6 minimum";
+    sub.textContent = "Add " + (ORDER_MIN - pieces) + " more. You can mix any gifts.";
+  } else {
+    count.textContent = pieces + (pieces === 1 ? " gift" : " gifts");
+    sub.textContent = "Minimum of 6 reached.";
+  }
+  document.getElementById("continue-details").disabled = pieces === 0;
 }
 
 function cardFor(item, featured) {
@@ -412,7 +423,7 @@ function cardFor(item, featured) {
   const existing = state.lines.find((line) => line.base === item.base);
   let colourId = existing ? existing.colourId : defaultColour(item);
   let deluxe = existing ? existing.deluxe : item.giftBox === "deluxe";
-  let qty = existing ? existing.qty : 6;
+  let qty = existing ? existing.qty : 1;
 
   const photo = el("div", { class: "photo" });
   const img = el("img", { alt: item.name, width: "800", height: "800" });
@@ -495,31 +506,35 @@ function cardFor(item, featured) {
   const qtyRow = el("div", { class: "qty-row" });
   const dec = el("button", { type: "button", "aria-label": "Decrease quantity" });
   dec.textContent = "−";
-  const input = el("input", { class: "qty", inputmode: "numeric", min: "6", "aria-label": "Quantity for " + item.name });
+  const input = el("input", { class: "qty", inputmode: "numeric", min: "1", "aria-label": "Quantity for " + item.name });
   input.value = String(qty);
   const inc = el("button", { type: "button", "aria-label": "Increase quantity" });
   inc.textContent = "+";
   const setQty = (next) => {
-    qty = Math.min(9999, Math.max(6, next));
+    qty = Math.min(9999, Math.max(1, next));
     input.value = String(qty);
   };
   dec.addEventListener("click", () => setQty(qty - 1));
   inc.addEventListener("click", () => setQty(qty + 1));
+  input.addEventListener("input", () => {
+    const next = parseInt(input.value, 10);
+    if (next >= 1 && next <= 9999) qty = next;
+  });
   input.addEventListener("change", () => {
     const next = parseInt(input.value, 10);
-    if (next >= 6) setQty(next);
+    if (next >= 1 && next <= 9999) setQty(next);
     else input.value = String(qty);
   });
   qtyRow.append(dec, input, inc);
   const hint = el("p", { class: "hint" });
-  hint.textContent = "Minimum 6 of this item.";
+  hint.textContent = "Each item can be 1 or more. The order needs 6 gifts in total.";
   const error = el("p", { class: "card-error" });
   const add = el("button", { type: "button", class: "btn btn-primary small add" });
   add.textContent = existing ? "Update quote" : "Add to quote";
   add.addEventListener("click", () => {
     const next = parseInt(input.value, 10);
-    if (!(next >= 6)) {
-      error.textContent = "Minimum of 6 for this item.";
+    if (!(next >= 1)) {
+      error.textContent = "Enter at least 1 of this item.";
       return;
     }
     error.textContent = "";
@@ -607,7 +622,15 @@ function contactErrors(contact) {
 function refreshFormButton() {
   const contact = readContactFromForm();
   const errors = contactErrors(contact);
-  document.getElementById("see-quote").disabled = Object.keys(errors).length > 0;
+  const pieces = orderPieces();
+  const short = pieces < ORDER_MIN;
+  const orderNote = document.getElementById("order-minimum");
+  if (orderNote) {
+    orderNote.textContent = short
+      ? pieces + " of 6 minimum. Add " + (ORDER_MIN - pieces) + " more gifts to see pricing. You can mix any items."
+      : pieces + " gifts. The minimum of 6 is met.";
+  }
+  document.getElementById("see-quote").disabled = short || Object.keys(errors).length > 0;
 }
 
 function showDetails() {
@@ -702,13 +725,13 @@ function renderQuote() {
     desc.textContent = line.description;
     idBlock.append(sku, desc);
     const qtyWrap = el("label", { class: "qty-row" });
-    const qty = el("input", { class: "line-qty", inputmode: "numeric", min: "6", "aria-label": "Quantity for " + line.sku });
+    const qty = el("input", { class: "line-qty", inputmode: "numeric", min: "1", "aria-label": "Quantity for " + line.sku });
     qty.value = String(line.qty);
     const commitQty = () => {
       const stored = state.lines.find((entry) => entry.id === line.id);
       if (!stored) return;
       const next = parseInt(qty.value, 10);
-      if (!(next >= 6 && next <= 9999)) {
+      if (!(next >= 1 && next <= 9999)) {
         qty.value = String(stored.qty);
         return;
       }
@@ -783,7 +806,7 @@ function renderQuote() {
     "Engraved orders add 10 to 14 business days.",
     "Prices are estimates from the Canada Volume Specials sheet (valid through 1/27). Wilson confirms the final quote.",
     "You pay in full. This page never collects card or payment details.",
-    "Quantities of 6 to 9 use the 10+ price. Higher quantities use the matching volume column."
+    "The minimum of 6 is for the whole order, so items can be mixed. Any quantity under 10 uses the 10+ price. Higher quantities use the matching volume column."
   ].forEach((text) => {
     const li = el("li");
     li.textContent = text;
@@ -800,10 +823,15 @@ function renderQuote() {
   callTitle.textContent = "Call Wilson for deals and promotions";
   const callCopy = el("p");
   callCopy.textContent = "Volume specials and current promotions are confirmed on the phone. He will walk through engraving and delivery with you.";
-  const call = el("a", { class: "btn btn-primary", id: "call-wilson", href: telHref(WILSON_PHONE) });
-  call.textContent = phoneIsPlaceholder(WILSON_PHONE) ? "Phone number coming soon" : WILSON_PHONE;
+  const call = el("a", { class: "btn btn-primary", id: "call-wilson", href: wilsonTel() });
+  call.textContent = WILSON_PHONE;
   call.addEventListener("click", () => track(EVENTS.callClicked));
-  callout.append(callTitle, callCopy, call);
+  const mailLine = el("p");
+  mailLine.append(document.createTextNode("Or email "));
+  const mail = el("a", { id: "email-wilson", href: "mailto:" + WILSON_EMAIL });
+  mail.textContent = WILSON_EMAIL;
+  mailLine.append(mail, document.createTextNode("."));
+  callout.append(callTitle, callCopy, call, mailLine);
 
   const actions = el("div", { class: "actions no-print" });
   const send = el("button", { class: "btn btn-primary", type: "button", id: "send-quote" });
@@ -842,8 +870,14 @@ function unlockPricing(event) {
   const errors = contactErrors(contact);
   ["firstName", "lastName", "business", "phone", "email", "province"].forEach((id) => fieldError(id, errors[id] || ""));
   const summary = document.getElementById("form-summary");
+  const pieces = orderPieces();
   if (Object.keys(errors).length) {
     summary.textContent = "Add a first name, last name, business, valid phone, valid email, and province to see pricing.";
+    document.getElementById("see-quote").disabled = true;
+    return;
+  }
+  if (pieces < ORDER_MIN) {
+    summary.textContent = pieces + " of 6 minimum. Add " + (ORDER_MIN - pieces) + " more gifts to see pricing. You can mix any items.";
     document.getElementById("see-quote").disabled = true;
     return;
   }
@@ -938,9 +972,25 @@ function bind() {
   });
   document.getElementById("back-to-gifts").addEventListener("click", () => showCatalog());
   const form = document.getElementById("details-form");
-  form.addEventListener("input", refreshFormButton);
-  form.addEventListener("change", refreshFormButton);
+  const syncContact = () => {
+    state.contact = readContactFromForm();
+    refreshFormButton();
+  };
+  form.addEventListener("input", syncContact);
+  form.addEventListener("change", syncContact);
   form.addEventListener("submit", unlockPricing);
+  fillWilsonContact();
+}
+
+function fillWilsonContact() {
+  const node = document.getElementById("wilson-contact");
+  if (!node) return;
+  node.replaceChildren();
+  const tel = el("a", { href: wilsonTel() });
+  tel.textContent = WILSON_PHONE;
+  const mail = el("a", { href: "mailto:" + WILSON_EMAIL });
+  mail.textContent = WILSON_EMAIL;
+  node.append("Call or text ", tel, " or email ", mail, ".");
 }
 
 bind();

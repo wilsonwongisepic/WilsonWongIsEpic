@@ -76,25 +76,15 @@ async function runFlow(page, width) {
   await expectNoPrices(page);
 
   const pizza = page.locator('.gift-card[data-base="1502"]');
-  await pizza.locator(".qty").fill("8");
+  await pizza.locator(".qty").fill("2");
   await pizza.locator(".add").click();
-
-  const club = page.locator('.gift-card[data-base="1822"]');
-  await club.locator('[data-colour="R"]').click();
-  await expect(club.locator("[data-deluxe]")).toBeChecked();
-  await club.locator(".qty").fill("12");
-  await club.locator(".add").click();
-
-  const combo = page.locator('.gift-card[data-base="3836"]');
-  await combo.locator('[data-colour="R"]').click();
-  await expect(combo.locator("[data-deluxe]")).toBeChecked();
-  await combo.locator(".qty").fill("6");
-  await combo.locator(".add").click();
-
-  await expect(page.locator("#tray-count")).toContainText("3 items");
+  const cheese = page.locator('.gift-card[data-base="6764"]');
+  await cheese.locator(".qty").fill("3");
+  await cheese.locator(".add").click();
+  await expect(page.locator("#tray-count")).toHaveText("5 of 6 minimum");
   await expectNoPrices(page);
   await noSidewaysScroll(page);
-  await shot(page, "quote-" + width + "-2-catalog.png");
+  await shot(page, "quote-" + width + "-2-five-blocked.png");
 
   await page.locator("#continue-details").click();
   await expect(page.locator("#step-details")).toBeVisible();
@@ -121,12 +111,52 @@ async function runFlow(page, width) {
   await page.locator("#engravingNotes").fill("Northline wordmark");
   await page.locator("#occasion").fill("Closings");
   await page.locator("#volume").fill("40 gifts over the next 6 months");
-  await expect(page.locator("#see-quote")).toBeEnabled();
+  await expect(page.locator("#see-quote")).toBeDisabled();
+  await expect(page.locator("#order-minimum")).toContainText("5 of 6 minimum");
+  await page.locator("#see-quote").evaluate((button) => {
+    button.disabled = false;
+    button.form.requestSubmit();
+  });
+  await expect(page.locator("#step-quote")).toBeHidden();
+  await expect(page.locator("#form-summary")).toContainText("5 of 6 minimum");
   await expectNoPrices(page);
   await noSidewaysScroll(page);
   await shot(page, "quote-" + width + "-3-details.png");
 
+  await page.locator("#back-to-gifts").click();
+  const saver = page.locator('.gift-card[data-base="3827"]');
+  await saver.locator(".qty").fill("1");
+  await saver.locator(".add").click();
+  await expect(page.locator("#tray-count")).toHaveText("6 gifts");
+  await page.locator("#continue-details").click();
+  await expect(page.locator("#see-quote")).toBeEnabled();
   await page.locator("#see-quote").click();
+  await expect(page.locator("#step-quote")).toBeVisible();
+  await expect(page.locator('[data-sku="1502C"] .unit')).toHaveText("$93.00");
+  await expect(page.locator('[data-sku="1502C"] .ext')).toHaveText("$186.00");
+  await expect(page.locator('[data-sku="6764CD"] .unit')).toHaveText("$151.00");
+  await expect(page.locator('[data-sku="6764CD"] .ext')).toHaveText("$453.00");
+  await expect(page.locator('[data-sku="3827CD"] .unit')).toHaveText("$254.00");
+  await expect(page.locator('[data-sku="3827CD"] .ext')).toHaveText("$254.00");
+
+  await page.locator("#edit-gifts").click();
+  while (await page.locator("#picks .linkish").count()) {
+    await page.locator("#picks .linkish").first().click();
+  }
+  await page.locator('.gift-card[data-base="1502"] .qty').fill("8");
+  await page.locator('.gift-card[data-base="1502"] .add').click();
+  const club = page.locator('.gift-card[data-base="1822"]');
+  await club.locator('[data-colour="R"]').click();
+  await expect(club.locator("[data-deluxe]")).toBeChecked();
+  await club.locator(".qty").fill("12");
+  await club.locator(".add").click();
+  const combo = page.locator('.gift-card[data-base="3836"]');
+  await combo.locator('[data-colour="R"]').click();
+  await expect(combo.locator("[data-deluxe]")).toBeChecked();
+  await combo.locator(".qty").fill("6");
+  await combo.locator(".add").click();
+  await expect(page.locator("#tray-count")).toHaveText("26 gifts");
+  await page.locator("#continue-details").click();
   await expect(page.locator("#step-quote")).toBeVisible();
   await expect(page.locator("#quote-number")).toHaveText(/WW-\d{8}-[A-HJ-NP-Z2-9]{4}/);
   const quoteNumber = (await page.locator("#quote-number").innerText()).trim();
@@ -180,7 +210,10 @@ async function runFlow(page, width) {
   await noSidewaysScroll(page);
   await shot(page, "quote-" + width + "-5-shipping-pending.png");
 
-  await expect(page.locator("#call-wilson")).toHaveAttribute("href", "tel:0000000000");
+  await expect(page.locator("#call-wilson")).toHaveAttribute("href", "tel:+17809150982");
+  await expect(page.locator("#call-wilson")).toHaveText("780-915-0982");
+  await expect(page.locator("#email-wilson")).toHaveAttribute("href", "mailto:executive.wilsonwong@gmail.com");
+  await expect(page.locator("#email-wilson")).toHaveText("executive.wilsonwong@gmail.com");
   await page.locator("#send-quote").click();
   await expect(page.locator("#confirmation")).toContainText("Wilson has your quote " + quoteNumber);
   await expect(page.locator("#confirmation")).toContainText("Nothing is charged");
@@ -258,8 +291,13 @@ test("home page opens the quote builder in a new tab", async ({ page }) => {
   await expect(link).toHaveAttribute("target", "_blank");
   await expect(link).toHaveAttribute("rel", "noopener");
   await expect(link).toContainText("Build your gift quote");
+  const contact = page.locator("#contact");
+  await expect(contact.locator('a[href="tel:+17809150982"]')).toContainText("780-915-0982");
+  await expect(contact.locator('a[href="mailto:executive.wilsonwong@gmail.com"]')).toContainText("executive.wilsonwong@gmail.com");
+  await expect(contact).toContainText("Booking link coming soon");
+  await contact.scrollIntoViewIfNeeded();
   await noSidewaysScroll(page);
-  await shot(page, "home-gift-cta-390.png");
+  await shot(page, "home-contact-390.png");
   await page.setViewportSize({ width: 1280, height: 900 });
   await page.goto("/");
   const gifts = page.locator("#gifts");
