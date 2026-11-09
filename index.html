@@ -142,6 +142,12 @@
     /* ---------- Gifts ---------- */
     .gifts { background: var(--cream); }
     .gift-head { display: flex; justify-content: space-between; align-items: end; gap: 32px; flex-wrap: wrap; }
+    .gift-cta { display: flex; flex-wrap: wrap; gap: 12px; }
+    .gift-cta a { position: relative; }
+    .sr-only {
+      position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+      overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+    }
     .gift .tier { font-size: .8rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); }
     .gift h3 { margin-top: 6px; }
     .gift ul { padding-left: 18px; color: var(--muted); margin: 14px 0 24px; }
@@ -292,7 +298,10 @@
           <h2>A thank-you they'll use every day</h2>
           <p class="lead">Perfect for realtors, mortgage brokers, financial advisors and anyone who wants to thank clients after a big decision. Cutco is made in the USA, backed by a Forever Guarantee, and can be engraved with your name or logo.</p>
         </div>
-        <a class="btn btn-primary" href="#contact">Request a quote</a>
+        <div class="gift-cta">
+          <a class="btn btn-primary" href="/sharp/" target="_blank" rel="noopener">Build your gift quote<span class="sr-only"> (opens in a new tab)</span></a>
+          <a class="btn btn-ghost" href="#contact">Request a quote</a>
+        </div>
       </div>
 
       <div class="grid-3">
