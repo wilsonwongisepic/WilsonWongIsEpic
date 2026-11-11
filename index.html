@@ -142,6 +142,12 @@
     /* ---------- Gifts ---------- */
     .gifts { background: var(--cream); }
     .gift-head { display: flex; justify-content: space-between; align-items: end; gap: 32px; flex-wrap: wrap; }
+    .gift-cta { display: flex; flex-wrap: wrap; gap: 12px; }
+    .gift-cta a { position: relative; }
+    .sr-only {
+      position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+      overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+    }
     .gift .tier { font-size: .8rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); }
     .gift h3 { margin-top: 6px; }
     .gift ul { padding-left: 18px; color: var(--muted); margin: 14px 0 24px; }
@@ -181,12 +187,13 @@
     .cta-methods { display: grid; gap: 12px; position: relative; z-index: 1; }
     .method {
       display: flex; align-items: center; gap: 16px; background: var(--cream); color: var(--ink);
-      padding: 16px 20px; border-radius: 14px; text-decoration: none;
+      padding: 16px 20px; border-radius: 14px; text-decoration: none; min-width: 0;
     }
     .method .icon { margin: 0; background: var(--brand); color: var(--cream); width: 42px; height: 42px; flex: none; }
     .method .icon svg { width: 20px; height: 20px; }
     .method small { display: block; font-size: .75rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); }
-    .method span { font-weight: 600; }
+    .method div { min-width: 0; }
+    .method span { font-weight: 600; overflow-wrap: anywhere; }
     .method .todo { color: var(--muted); font-weight: 500; font-style: italic; }
     @media (max-width: 860px) { .cta { grid-template-columns: 1fr; gap: 28px; } }
 
@@ -292,7 +299,10 @@
           <h2>A thank-you they'll use every day</h2>
           <p class="lead">Perfect for realtors, mortgage brokers, financial advisors and anyone who wants to thank clients after a big decision. Cutco is made in the USA, backed by a Forever Guarantee, and can be engraved with your name or logo.</p>
         </div>
-        <a class="btn btn-primary" href="#contact">Request a quote</a>
+        <div class="gift-cta">
+          <a class="btn btn-primary" href="/sharp/" target="_blank" rel="noopener">Build your gift quote<span class="sr-only"> (opens in a new tab)</span></a>
+          <a class="btn btn-ghost" href="#contact">Request a quote</a>
+        </div>
       </div>
 
       <div class="grid-3">
@@ -372,14 +382,13 @@
           <p class="lead">Book a keynote, start coaching, or order closing gifts for your clients. Reach out and I'll get back to you within one business day.</p>
         </div>
         <div class="cta-methods">
-          <!-- TODO: replace placeholders with real contact details (href="tel:..." / "mailto:...") -->
-          <a class="method" href="#contact">
+          <a class="method" href="tel:+17809150982">
             <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg></span>
-            <div><small>Call or text</small><span class="todo">Phone number coming soon</span></div>
+            <div><small>Call or text</small><span>780-915-0982</span></div>
           </a>
-          <a class="method" href="#contact">
+          <a class="method" href="mailto:executive.wilsonwong@gmail.com">
             <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg></span>
-            <div><small>Email</small><span class="todo">Email address coming soon</span></div>
+            <div><small>Email</small><span>executive.wilsonwong@gmail.com</span></div>
           </a>
           <a class="method" href="#contact">
             <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></span>

@@ -1,0 +1,405 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Closing gift quote — Wilson Wong</title>
+  <meta name="description" content="Build a Cutco closing-gift quote for realtors, mortgage professionals, and businesses in Canada. Pricing appears after your details. Wilson Wong is an independent Cutco representative.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    /* Forest green and cream, same as the home page.
+       Button colours are separate variables so this page can follow
+       the home page buttons. Today they are forest green, matching main.
+       If the sky-blue button update (PR #9) is what you keep, change only
+       these five lines to:
+       --btn: #0ea5e9; --btn-hover: #0284c7; --btn-text: #02131f;
+       --btn-on-light: #0369a1; --btn-focus: #0369a1; */
+    :root {
+      --brand: #2f6b4f;
+      --brand-deep: #1d4634;
+      --cream: #f6f0e3;
+      --cream-deep: #e7dbc2;
+      --accent: #a8844e;
+      --ink: #1d232a;
+      --muted: #5b636c;
+      --white: #fffdf9;
+      --line: color-mix(in srgb, var(--ink) 12%, transparent);
+      --radius: 14px;
+      --max: 1120px;
+      --btn: #2f6b4f;
+      --btn-hover: #1d4634;
+      --btn-text: #ffffff;
+      --btn-on-light: #2f6b4f;
+      --btn-focus: #1d4634;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--white);
+      color: var(--ink);
+      font: 400 17px/1.6 Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    h1, h2, h3 { font-family: Fraunces, Georgia, serif; font-weight: 600; line-height: 1.15; margin: 0 0 .5em; letter-spacing: -.01em; }
+    h1 { font-size: clamp(2.1rem, 5vw, 3.4rem); }
+    h2 { font-size: clamp(1.6rem, 3.5vw, 2.3rem); }
+    h3 { font-size: 1.25rem; }
+    p { margin: 0 0 1em; overflow-wrap: break-word; }
+    a { color: inherit; }
+    img { max-width: 100%; display: block; }
+    button, input, select, textarea { font: inherit; color: inherit; }
+    .wrap { max-width: var(--max); margin: 0 auto; padding: 0 20px; }
+    .eyebrow {
+      display: inline-block; font-size: .78rem; font-weight: 600; letter-spacing: .14em;
+      text-transform: uppercase; color: var(--accent); margin-bottom: 12px;
+    }
+    .lead { font-size: 1.08rem; color: var(--muted); max-width: 62ch; }
+    #wilson-contact { overflow-wrap: anywhere; }
+    #wilson-contact a { color: var(--brand); font-weight: 600; }
+    .btn {
+      display: inline-block; padding: 14px 26px; border-radius: 999px; font-weight: 600;
+      text-decoration: none; text-align: center; cursor: pointer;
+      transition: transform .15s, background .2s, color .2s, border-color .2s;
+      border: 2px solid var(--btn-on-light); color: var(--btn-on-light); background: transparent;
+    }
+    .btn:hover { transform: translateY(-1px); }
+    .btn:focus-visible { outline: 3px solid var(--btn-focus); outline-offset: 3px; }
+    .btn:active { transform: translateY(0); }
+    .btn-primary { background: var(--btn); color: var(--btn-text); border-color: var(--btn); }
+    .btn-primary:hover,
+    .btn-primary:active { background: var(--btn-hover); border-color: var(--btn-hover); color: var(--btn-text); }
+    .btn-ghost { color: var(--btn-on-light); background: transparent; border-color: var(--btn-on-light); }
+    .btn-ghost:hover { background: var(--btn); color: var(--btn-text); border-color: var(--btn); }
+    .btn-ghost:active { background: var(--btn-hover); color: var(--btn-text); border-color: var(--btn-hover); }
+    .btn[disabled], .btn:disabled { opacity: .45; cursor: not-allowed; transform: none; }
+    .btn.small { padding: 10px 18px; font-size: .95rem; }
+
+    header.site {
+      position: sticky; top: 0; z-index: 20;
+      background: color-mix(in srgb, var(--white) 90%, transparent);
+      backdrop-filter: blur(10px); border-bottom: 1px solid var(--line);
+    }
+    .nav { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 70px; }
+    .logo { font-family: Fraunces, serif; font-weight: 600; font-size: 1.25rem; text-decoration: none; }
+    .logo span { color: var(--brand); }
+    .nav-note { color: var(--muted); font-size: .92rem; text-decoration: none; font-weight: 500; }
+    .nav-note:hover { color: var(--brand); }
+
+    .step { padding: 36px 0 72px; }
+    .choice-grid, .catalog-grid, .feature-grid { display: grid; gap: 16px; }
+    .choice-grid { margin-top: 28px; }
+    @media (min-width: 800px) {
+      .choice-grid { grid-template-columns: 1fr 1fr; gap: 20px; }
+      .catalog-grid, .feature-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (min-width: 1100px) {
+      .catalog-grid { grid-template-columns: 1fr 1fr 1fr; }
+    }
+
+    .card {
+      background: var(--white); border: 1px solid var(--line); border-radius: var(--radius);
+      padding: 22px; min-width: 0;
+    }
+    .choice {
+      background: var(--cream); border: 1px solid transparent; text-align: left; width: 100%;
+      cursor: pointer; transition: border-color .2s, transform .15s;
+    }
+    .choice:hover { border-color: var(--brand); transform: translateY(-1px); }
+    .choice:focus-visible { outline: 3px solid var(--btn-focus); outline-offset: 3px; }
+    .choice h2 { font-size: 1.7rem; }
+    .choice p { color: var(--muted); margin: 0; }
+
+    .banner {
+      background: var(--cream); border-radius: 18px; padding: 22px; margin: 8px 0 22px;
+    }
+    .banner h2 { font-size: 1.55rem; }
+    .tools { display: flex; flex-wrap: wrap; gap: 10px; margin: 8px 0 18px; }
+    .tools input, .tools select, .field input, .field select, .field textarea {
+      width: 100%; max-width: 100%; border: 1px solid var(--line); background: var(--white);
+      border-radius: 12px; padding: 12px 14px; font-size: 16px;
+    }
+    .tools input { flex: 1 1 220px; }
+    .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 18px; }
+    .chip {
+      border: 1px solid var(--line); background: var(--white); border-radius: 999px;
+      padding: 8px 12px; cursor: pointer; font-size: .88rem; font-weight: 500; color: var(--muted);
+    }
+    .chip[aria-pressed="true"] { background: var(--brand); color: #fff; border-color: var(--brand); }
+    .chip:focus-visible { outline: 3px solid var(--btn-focus); outline-offset: 2px; }
+
+    .gift-card { display: flex; flex-direction: column; padding: 0; overflow: hidden; }
+    .gift-card .photo {
+      aspect-ratio: 1; background: #fff; display: grid; place-items: center;
+      border-bottom: 1px solid var(--line);
+    }
+    .gift-card .photo img { width: 100%; height: 100%; object-fit: contain; }
+    .gift-card .body { padding: 16px 16px 18px; display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+    .gift-card h3 { margin: 0; font-size: 1.2rem; }
+    .meta { color: var(--muted); font-size: .92rem; margin: 0; }
+    .badge {
+      display: inline-block; background: var(--cream); color: var(--brand-deep);
+      border-radius: 999px; padding: 3px 10px; font-size: .75rem; font-weight: 600;
+      letter-spacing: .04em; text-transform: uppercase;
+    }
+    .sku-preview { font-weight: 600; font-size: .95rem; }
+    .swatches { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+    .swatch {
+      width: 44px; height: 44px; border-radius: 50%; border: 2px solid #fff;
+      box-shadow: 0 0 0 1px var(--line); cursor: pointer; padding: 0;
+    }
+    .swatch[aria-pressed="true"] { box-shadow: 0 0 0 2px var(--brand); }
+    .swatch:focus-visible { outline: 3px solid var(--btn-focus); outline-offset: 2px; }
+    .swatch-C { background: #6b4423; }
+    .swatch-W { background: #f4f0e6; }
+    .swatch-R { background: #8e2f2f; }
+    .swatch-BK { background: #1c1c1c; }
+    .swatch-DB { background: #1e4b7a; }
+    .swatch-BR { background: #7a5230; }
+    .swatch-OR { background: #d4652f; }
+    .swatch-SS { background: linear-gradient(#eee, #8d8d8d); }
+    .swatch-AS, .swatch-CM { background: var(--cream-deep); }
+    .check { display: flex; gap: 8px; align-items: flex-start; font-size: .95rem; }
+    .check input { width: 1.1rem; height: 1.1rem; margin-top: .2rem; flex: none; }
+    .qty-row { display: flex; align-items: center; gap: 8px; }
+    .qty-row button {
+      width: 44px; height: 44px; border-radius: 12px; border: 1px solid var(--line);
+      background: var(--cream); cursor: pointer; font-size: 1.2rem;
+    }
+    .qty-row input {
+      width: 4.5rem; height: 44px; text-align: center; border-radius: 12px;
+      border: 1px solid var(--line); font-size: 16px;
+    }
+    .hint { color: var(--muted); font-size: .85rem; margin: 0; }
+    .card-error { color: #8a2e2e; font-size: .88rem; margin: 0; min-height: 1.2em; }
+
+    .picks { display: grid; gap: 10px; margin-bottom: 18px; }
+    .pick {
+      display: grid; grid-template-columns: 1fr auto; gap: 8px 12px; align-items: center;
+      border: 1px solid var(--line); border-radius: 12px; padding: 12px;
+    }
+    .pick button.linkish {
+      border: 0; background: none; color: var(--brand); font-weight: 600; cursor: pointer; padding: 8px;
+    }
+
+    .tray {
+      position: fixed; left: 0; right: 0; bottom: 0; z-index: 25;
+      background: var(--white); border-top: 1px solid var(--line);
+      box-shadow: 0 -10px 30px rgba(29, 35, 42, .06);
+    }
+    .tray-inner {
+      max-width: var(--max); margin: 0 auto; padding: 12px 20px;
+      display: flex; align-items: center; justify-content: space-between; gap: 12px;
+    }
+    .tray p { margin: 0; min-width: 0; }
+    .tray strong { display: block; }
+    body.browsing { padding-bottom: 96px; }
+
+    form.details { display: grid; gap: 14px; margin-top: 12px; }
+    @media (min-width: 800px) {
+      form.details { grid-template-columns: 1fr 1fr; }
+      .field.wide, .form-actions, .form-note { grid-column: 1 / -1; }
+    }
+    .field { display: grid; gap: 6px; min-width: 0; }
+    .field span { font-weight: 600; font-size: .92rem; }
+    .field .err { color: #8a2e2e; font-size: .85rem; min-height: 1.1em; }
+    .field input[aria-invalid="true"], .field select[aria-invalid="true"] { border-color: #8a2e2e; }
+    .form-actions { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+    .form-note { color: var(--muted); font-size: .92rem; }
+
+    .quote-top { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; align-items: end; }
+    .quote-no { font-family: Fraunces, Georgia, serif; font-size: 1.35rem; margin: 0; }
+    .quote-lines { display: grid; gap: 12px; margin: 18px 0; }
+    .quote-line {
+      border: 1px solid var(--line); border-radius: var(--radius); padding: 14px;
+      display: grid; gap: 8px; min-width: 0;
+    }
+    .quote-line .top { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+    .sku { font-weight: 600; }
+    .money-row, .totals p { display: flex; justify-content: space-between; gap: 12px; margin: 0 0 8px; }
+    .totals {
+      background: var(--cream); border-radius: var(--radius); padding: 16px 18px; margin-top: 8px;
+    }
+    #shipping-note { display: block; margin: 0 0 10px; }
+    #shipping-note[hidden] { display: none !important; }
+    .totals .grand { font-family: Fraunces, Georgia, serif; font-size: 1.45rem; margin: 10px 0 0; }
+    .notes { color: var(--muted); font-size: .92rem; }
+    .notes li { margin: 0 0 8px; }
+    .guarantee { color: var(--brand-deep); font-size: .92rem; font-weight: 600; margin: 0 0 1em; }
+    .expect { margin: 8px 0 28px; }
+    .expect h2 { font-size: 1.45rem; }
+    .expect ol {
+      list-style: none; margin: 0; padding: 0; display: grid; gap: 16px;
+      counter-reset: expect;
+    }
+    .expect li {
+      min-width: 0; margin: 0; counter-increment: expect;
+      border-top: 2px solid var(--brand); padding-top: 12px;
+    }
+    .expect li::before {
+      content: counter(expect);
+      display: block; margin-bottom: 6px;
+      font-family: Fraunces, Georgia, serif; font-size: 1.35rem; color: var(--brand);
+    }
+    .expect li strong { display: block; font-size: 1.02rem; margin-bottom: 4px; }
+    .expect li p { margin: 0; color: var(--muted); font-size: .92rem; }
+    @media (min-width: 900px) {
+      .expect ol { grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 16px; }
+    }
+    .callout {
+      background: var(--brand); color: #fff; border-radius: 20px; padding: 22px;
+      display: grid; gap: 12px; margin: 22px 0;
+    }
+    .callout h2 { color: #fff; font-size: 1.7rem; }
+    .callout p { color: color-mix(in srgb, #fff 86%, transparent); margin: 0; overflow-wrap: anywhere; }
+    .callout a:not(.btn) { color: #fff; font-weight: 600; }
+    .callout .btn-primary { background: var(--cream); color: var(--brand-deep); border-color: var(--cream); }
+    .callout .btn-primary:hover { background: #fff; }
+    .actions { display: flex; flex-wrap: wrap; gap: 10px; }
+    #confirmation {
+      background: var(--cream); border-radius: var(--radius); padding: 16px 18px;
+    }
+    .fine { font-size: .8rem; color: var(--muted); }
+    .site-footer { padding: 28px 0 40px; }
+    .empty { color: var(--muted); }
+
+    @media print {
+      header.site, .tray, .no-print, .actions, .callout .btn, #step-type, #step-catalog, #step-details { display: none !important; }
+      body { background: #fff; padding: 0; }
+      #step-quote { display: block !important; }
+      .step { padding: 0; }
+      .callout { background: #fff; color: #000; border: 1px solid #ccc; }
+      .callout h2, .callout p { color: #000; }
+      a { text-decoration: none; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      * { scroll-behavior: auto !important; transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site">
+    <div class="wrap nav">
+      <a class="logo" href="/">Wilson <span>Wong</span></a>
+      <a class="nav-note" href="/#gifts">Back to closing gifts</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="step" id="step-type">
+      <div class="wrap">
+        <div id="hero-copy">
+          <span class="eyebrow">Closing gifts · Canada</span>
+          <h1>Appreciation that lasts forever.</h1>
+          <p class="lead">Every time they reach for it, their appreciation lasts forever, just like Cutco's guarantee.</p>
+          <p class="guarantee">Backed by Cutco's Forever Guarantee.</p>
+          <div id="expect-top"></div>
+        </div>
+        <p class="lead">For realtors, mortgage and home-lending professionals, developers, and other businesses that want a gift they can reorder. Mix any gifts. The order needs 6 in total, and each item can be as few as one. Prices stay hidden until we know who the quote is for. Canada only.</p>
+        <p class="lead" id="wilson-contact"></p>
+        <div class="choice-grid">
+          <button class="card choice" type="button" id="choose-realtor" data-type="Realtor">
+            <span class="eyebrow">Realtor</span>
+            <h2>Realtors and home lending</h2>
+            <p>Closings, past clients, and the people who send you business. Starts with the gifts offices usually reorder.</p>
+          </button>
+          <button class="card choice" type="button" id="choose-business" data-type="Business">
+            <span class="eyebrow">Business gifting</span>
+            <h2>Clients, staff, and partners</h2>
+            <p>A practical gift with your logo, name, or a short line of text. A white Santoku is a strong place to start.</p>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <section class="step" id="step-catalog" hidden>
+      <div class="wrap">
+        <span class="eyebrow" id="catalog-kicker">Your gifts</span>
+        <h2 id="catalog-title">Choose the gifts</h2>
+        <p class="lead" id="catalog-lead">Pick a colour, a gift box where one is offered, and how many you want. One is fine for an item. The order needs 6 gifts in total. Prices are not shown on this step.</p>
+        <p class="no-print"><button class="btn btn-ghost small" type="button" id="change-type">Change gifting type</button></p>
+        <div id="feature"></div>
+        <div class="tools">
+          <input id="search" type="search" placeholder="Search by name or item number" aria-label="Search gifts">
+        </div>
+        <div class="chips" id="collections" role="group" aria-label="Collections"></div>
+        <div id="picks" class="picks" aria-live="polite"></div>
+        <div id="grid" class="catalog-grid"></div>
+      </div>
+      <div class="tray" id="tray">
+        <div class="tray-inner">
+          <p><strong id="tray-count">No gifts yet</strong><span id="tray-sub" class="hint">6 gifts minimum for the order. Mix any items.</span></p>
+          <button class="btn btn-primary small" type="button" id="continue-details" disabled>Continue</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="step" id="step-details" hidden>
+      <div class="wrap">
+        <span class="eyebrow">Your details</span>
+        <h2>Where should Wilson send this?</h2>
+        <p class="lead">Pricing is shown only after the order has at least 6 gifts and your name, business, phone, email, and province are filled in. You can mix any items. Canadian provinces and territories only. This page does not take payment.</p>
+        <p class="form-note" id="order-minimum" role="status"></p>
+        <form class="details" id="details-form" novalidate>
+          <label class="field"><span>First name</span><input id="firstName" name="firstName" autocomplete="given-name" required><small class="err" id="err-firstName"></small></label>
+          <label class="field"><span>Last name</span><input id="lastName" name="lastName" autocomplete="family-name" required><small class="err" id="err-lastName"></small></label>
+          <label class="field wide"><span>Business name</span><input id="business" name="business" autocomplete="organization" required><small class="err" id="err-business"></small></label>
+          <label class="field"><span>Phone</span><input id="phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" required placeholder="780-915-0982"><small class="err" id="err-phone"></small></label>
+          <label class="field"><span>Email</span><input id="email" name="email" type="email" autocomplete="email" required><small class="err" id="err-email"></small></label>
+          <label class="field"><span>Province or territory</span>
+            <select id="province" name="province" required>
+              <option value="">Select</option>
+              <option value="AB">Alberta</option>
+              <option value="BC">British Columbia</option>
+              <option value="MB">Manitoba</option>
+              <option value="NB">New Brunswick</option>
+              <option value="NL">Newfoundland and Labrador</option>
+              <option value="NT">Northwest Territories</option>
+              <option value="NS">Nova Scotia</option>
+              <option value="NU">Nunavut</option>
+              <option value="ON">Ontario</option>
+              <option value="PE">Prince Edward Island</option>
+              <option value="QC">Quebec</option>
+              <option value="SK">Saskatchewan</option>
+              <option value="YT">Yukon</option>
+            </select>
+            <small class="err" id="err-province"></small>
+          </label>
+          <label class="field"><span>Engraving interest (optional)</span>
+            <select id="engraving" name="engraving">
+              <option value="">Not yet</option>
+              <option>Logo</option>
+              <option>Name</option>
+              <option>Text</option>
+            </select>
+          </label>
+          <label class="field wide"><span>Engraving notes (optional)</span><textarea id="engravingNotes" name="engravingNotes" rows="3" placeholder="Logo, name, or the line of text you have in mind"></textarea></label>
+          <label class="field"><span>Occasion (optional)</span><input id="occasion" name="occasion" placeholder="Closings, year-end, staff gifts"></label>
+          <label class="field"><span>Estimated gifts over 6 or 12 months (optional)</span><input id="volume" name="volume" placeholder="For example, 40 over the next 6 months"></label>
+          <div class="form-actions">
+            <button class="btn btn-primary" type="submit" id="see-quote" disabled>See pricing</button>
+            <button class="btn btn-ghost" type="button" id="back-to-gifts">Back to gifts</button>
+          </div>
+          <p class="form-note" id="form-summary" role="status"></p>
+        </form>
+      </div>
+    </section>
+
+    <section class="step" id="step-quote" hidden>
+      <div class="wrap" id="quote-mount"></div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <p class="fine">Cutco is a registered trademark of CUTCO Corporation. Wilson Wong is an independent Cutco representative. Prices are from the Canada Volume Specials sheet, valid through 1/27, and Wilson confirms the final quote. No payment is collected on this page.</p>
+    </div>
+  </footer>
+
+  <script src="catalog.js"></script>
+  <script src="quote.js"></script>
+</body>
+</html>
