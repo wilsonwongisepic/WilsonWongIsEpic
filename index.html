@@ -5,410 +5,337 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Wilson Wong — Speaker &amp; Sales Coach</title>
   <meta name="description" content="Wilson Wong is a public speaker and sales coach helping teams sell with confidence. Book a keynote, start coaching, or order Cutco closing gifts.">
+  <link rel="canonical" href="https://wilsonwongisepic.com/">
+  <meta name="theme-color" content="#1d4634">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Wilson Wong — Speaker &amp; Sales Coach">
+  <meta property="og:description" content="Keynotes, workshops, coaching, and Cutco closing gifts.">
+  <meta property="og:url" content="https://wilsonwongisepic.com/">
+  <meta property="og:image" content="https://wilsonwongisepic.com/images/photos/stage-mic-1100.webp">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-  <style>
-    /* ---------- Palette: forest green & cream ---------- */
-    :root {
-      --brand: #2f6b4f;
-      --brand-deep: #1d4634;
-      --cream: #f6f0e3;
-      --cream-deep: #e7dbc2;
-      --accent: #a8844e;
-    }
-    :root {
-      --ink: #1d232a;
-      --muted: #5b636c;
-      --white: #fffdf9;
-      --line: color-mix(in srgb, var(--ink) 12%, transparent);
-      --radius: 14px;
-      --max: 1120px;
-    }
-
-    /* ---------- Base ---------- */
-    * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    body {
-      margin: 0;
-      background: var(--white);
-      color: var(--ink);
-      font: 400 17px/1.65 Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
-      -webkit-font-smoothing: antialiased;
-    }
-    h1, h2, h3 { font-family: Fraunces, Georgia, serif; font-weight: 600; line-height: 1.15; margin: 0 0 .5em; letter-spacing: -.01em; }
-    h1 { font-size: clamp(2.4rem, 6vw, 4rem); }
-    h2 { font-size: clamp(1.9rem, 4vw, 2.6rem); }
-    h3 { font-size: 1.3rem; }
-    p { margin: 0 0 1em; }
-    a { color: inherit; }
-    img { max-width: 100%; display: block; }
-    .wrap { max-width: var(--max); margin: 0 auto; padding: 0 20px; }
-    section { padding: 96px 0; }
-    .eyebrow {
-      display: inline-block; font-size: .78rem; font-weight: 600; letter-spacing: .14em;
-      text-transform: uppercase; color: var(--accent); margin-bottom: 14px;
-    }
-    .lead { font-size: 1.15rem; color: var(--muted); max-width: 60ch; }
-    .btn {
-      display: inline-block; padding: 14px 26px; border-radius: 999px; font-weight: 600;
-      text-decoration: none; transition: transform .15s, background .2s, color .2s;
-      border: 2px solid var(--brand);
-    }
-    .btn:hover { transform: translateY(-1px); }
-    .btn-primary { background: var(--brand); color: #fff; }
-    .btn-primary:hover { background: var(--brand-deep); border-color: var(--brand-deep); }
-    .btn-ghost { color: var(--brand); background: transparent; }
-    .btn-ghost:hover { background: var(--brand); color: #fff; }
-    .btn-cream { background: var(--cream); color: var(--brand-deep); border-color: var(--cream); }
-
-    /* ---------- Nav ---------- */
-    header {
-      position: sticky; top: 0; z-index: 10;
-      background: color-mix(in srgb, var(--white) 88%, transparent);
-      backdrop-filter: blur(10px); border-bottom: 1px solid var(--line);
-    }
-    .nav { display: flex; align-items: center; justify-content: space-between; height: 70px; }
-    .logo { font-family: Fraunces, serif; font-weight: 600; font-size: 1.3rem; text-decoration: none; color: var(--ink); }
-    .logo span { color: var(--brand); }
-    .nav ul { display: flex; gap: 28px; list-style: none; margin: 0; padding: 0; align-items: center; }
-    .nav ul a { text-decoration: none; font-size: .95rem; font-weight: 500; color: var(--muted); }
-    .nav ul a:hover { color: var(--brand); }
-    .nav .btn { padding: 9px 18px; color: #fff; }
-    @media (max-width: 820px) { .nav ul li:not(:last-child) { display: none; } }
-
-    /* ---------- Hero ---------- */
-    .hero { background: var(--cream); padding: 88px 0 104px; overflow: hidden; }
-    .hero-grid { display: grid; grid-template-columns: 1fr 1.1fr; position: relative; z-index: 0; gap: 56px; align-items: center; }
-    .hero h1 em { font-style: normal; color: var(--brand); }
-    .hero .actions { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 30px; }
-    .hero-photo { position: relative; }
-    .hero-photo img {
-      width: 100%; height: auto; aspect-ratio: 5/4; object-fit: cover; object-position: 75% 30%;
-      border-radius: var(--radius);
-      box-shadow: 0 30px 60px -30px color-mix(in srgb, var(--brand-deep) 70%, transparent);
-    }
-    .hero-photo::before {
-      content: ""; position: absolute; inset: 18px -18px -18px 18px; border-radius: var(--radius);
-      background: var(--brand); z-index: -1;
-    }
-    .badge {
-      position: absolute; left: -24px; bottom: 28px; background: var(--white); color: var(--ink);
-      padding: 14px 18px; border-radius: 12px; font: 500 .9rem/1.4 Inter, sans-serif;
-      box-shadow: 0 12px 30px -12px rgba(0,0,0,.25); text-align: left;
-    }
-    .badge b { display: block; color: var(--brand); font-size: 1rem; }
-    @media (max-width: 860px) {
-      .hero-grid { grid-template-columns: 1fr; }
-      .hero-photo { order: -1; margin-right: 18px; }
-      .badge { left: 10px; bottom: 10px; padding: 8px 12px; font-size: .78rem; }
-      .badge b { font-size: .85rem; }
-    }
-
-    /* ---------- Cards ---------- */
-    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 48px; }
-    @media (max-width: 900px) { .grid-3 { grid-template-columns: 1fr; } }
-    .card {
-      background: var(--white); border: 1px solid var(--line); border-radius: var(--radius);
-      padding: 32px; transition: border-color .2s, box-shadow .2s;
-    }
-    .card:hover { border-color: var(--brand); box-shadow: 0 16px 40px -24px color-mix(in srgb, var(--brand) 60%, transparent); }
-    .card p { color: var(--muted); margin: 0; }
-    .icon {
-      width: 48px; height: 48px; border-radius: 12px; background: var(--cream); color: var(--brand);
-      display: grid; place-items: center; margin-bottom: 20px;
-    }
-    .icon svg { width: 24px; height: 24px; }
-
-    /* ---------- About ---------- */
-    .about-grid { display: grid; grid-template-columns: 1fr 1.3fr; gap: 64px; align-items: start; }
-    .pillars { list-style: none; padding: 0; margin: 28px 0 0; display: grid; gap: 14px; }
-    .pillars li { padding-left: 30px; position: relative; }
-    .pillars li::before {
-      content: ""; position: absolute; left: 0; top: .55em; width: 14px; height: 14px;
-      background: var(--brand); transform: rotate(45deg); border-radius: 2px;
-    }
-    @media (max-width: 820px) { .about-grid { grid-template-columns: 1fr; gap: 24px; } }
-
-    /* ---------- Coaching ---------- */
-    .coaching { background: var(--brand); color: #fff; }
-    .coaching .eyebrow { color: var(--cream-deep); }
-    .coaching .lead { color: color-mix(in srgb, #fff 78%, transparent); }
-    .coaching .card { background: color-mix(in srgb, #fff 7%, transparent); border-color: color-mix(in srgb, #fff 18%, transparent); color: #fff; }
-    .coaching .card:hover { border-color: var(--cream); box-shadow: none; }
-    .coaching .card p { color: color-mix(in srgb, #fff 75%, transparent); }
-    .coaching .card .tag { color: var(--cream-deep); font-size: .82rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; display: block; margin-bottom: 10px; }
-
-    /* ---------- Gifts ---------- */
-    .gifts { background: var(--cream); }
-    .gift-head { display: flex; justify-content: space-between; align-items: end; gap: 32px; flex-wrap: wrap; }
-    .gift-cta { display: flex; flex-wrap: wrap; gap: 12px; }
-    .gift-cta a { position: relative; }
-    .sr-only {
-      position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
-      overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
-    }
-    .gift .tier { font-size: .8rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); }
-    .gift h3 { margin-top: 6px; }
-    .gift ul { padding-left: 18px; color: var(--muted); margin: 14px 0 24px; }
-    .gift { display: flex; flex-direction: column; }
-    .gift .btn { margin-top: auto; align-self: flex-start; padding: 10px 20px; font-size: .95rem; }
-    .gift.featured { border: 2px solid var(--brand); position: relative; }
-    .gift.featured::after {
-      content: "Most popular"; position: absolute; top: -13px; right: 24px; background: var(--brand); color: #fff;
-      font-size: .75rem; font-weight: 600; padding: 4px 12px; border-radius: 999px;
-    }
-    .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 56px; counter-reset: s; }
-    .steps div { counter-increment: s; border-top: 2px solid var(--brand); padding-top: 16px; }
-    .steps div::before { content: "0" counter(s); font-family: Fraunces, serif; color: var(--brand); font-size: 1.4rem; display: block; margin-bottom: 4px; }
-    .steps p { color: var(--muted); margin: 0; font-size: .95rem; }
-    @media (max-width: 820px) { .steps { grid-template-columns: 1fr; } }
-    .disclaimer { font-size: .8rem; color: var(--muted); margin-top: 40px; }
-
-    /* ---------- Testimonials ---------- */
-    blockquote { margin: 0; }
-    blockquote p { font-family: Fraunces, serif; font-size: 1.15rem; color: var(--ink) !important; line-height: 1.5; }
-    blockquote footer { margin-top: 18px; font-size: .9rem; color: var(--muted); }
-    blockquote footer b { color: var(--ink); display: block; }
-
-    /* ---------- Contact CTA ---------- */
-    .contact { background: var(--white); }
-    .cta {
-      background: var(--brand); color: #fff; border-radius: 24px; padding: clamp(32px, 6vw, 64px);
-      display: grid; grid-template-columns: 1.2fr 1fr; gap: 48px; align-items: center;
-      position: relative; overflow: hidden;
-    }
-    .cta::after {
-      content: ""; position: absolute; right: -80px; top: -80px; width: 260px; height: 260px;
-      border: 40px solid color-mix(in srgb, var(--cream) 12%, transparent); border-radius: 50%;
-    }
-    .cta .eyebrow { color: var(--cream-deep); }
-    .cta .lead { color: color-mix(in srgb, #fff 80%, transparent); margin: 0; }
-    .cta-methods { display: grid; gap: 12px; position: relative; z-index: 1; }
-    .method {
-      display: flex; align-items: center; gap: 16px; background: var(--cream); color: var(--ink);
-      padding: 16px 20px; border-radius: 14px; text-decoration: none; min-width: 0;
-    }
-    .method .icon { margin: 0; background: var(--brand); color: var(--cream); width: 42px; height: 42px; flex: none; }
-    .method .icon svg { width: 20px; height: 20px; }
-    .method small { display: block; font-size: .75rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); }
-    .method div { min-width: 0; }
-    .method span { font-weight: 600; overflow-wrap: anywhere; }
-    .method .todo { color: var(--muted); font-weight: 500; font-style: italic; }
-    @media (max-width: 860px) { .cta { grid-template-columns: 1fr; gap: 28px; } }
-
-    /* ---------- Footer ---------- */
-    .site-footer { background: var(--ink); color: color-mix(in srgb, #fff 60%, transparent); padding: 32px 0; font-size: .85rem; }
-    .site-footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
-
-  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/styles.css">
 </head>
 <body>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="site-header" id="site-header">
+    <nav class="container nav" aria-label="Main">
+      <a class="logo" href="#top">Wilson <span>Wong</span></a>
+      <button class="menu-toggle" id="menu-toggle" type="button" aria-expanded="false" aria-controls="nav-links">
+        <span></span><span></span><span></span>
+        <span class="sr-only">Menu</span>
+      </button>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="#speaking">Speaking</a></li>
+        <li><a href="#coaching">Coaching</a></li>
+        <li><a href="#gifts">Closing Gifts</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#gallery">Gallery</a></li>
+        <li><a class="btn" href="#contact">Book Wilson</a></li>
+      </ul>
+    </nav>
+  </header>
 
-<header>
-  <nav class="wrap nav" aria-label="Main">
-    <a class="logo" href="#top">Wilson <span>Wong</span></a>
-    <ul>
-      <li><a href="#speaking">Speaking</a></li>
-      <li><a href="#coaching">Coaching</a></li>
-      <li><a href="#gifts">Closing Gifts</a></li>
-      <li><a href="#about">About</a></li>
-      <li><a class="btn btn-primary" href="#contact">Book Wilson</a></li>
-    </ul>
-  </nav>
-</header>
+  <main id="main">
+    <section class="hero" id="top">
+      <div class="hero-bg">
+        <img
+          src="images/photos/stage-mic-1100.webp"
+          srcset="images/photos/stage-mic-1100.webp 1100w, images/photos/stage-mic-2000.webp 2000w"
+          sizes="100vw"
+          width="2000"
+          height="1333"
+          alt="Wilson Wong speaking into a microphone on an outdoor stage"
+          fetchpriority="high"
+          decoding="async">
+      </div>
+      <div class="container hero-copy">
+        <span class="eyebrow rise">Public Speaker · Sales Coach</span>
+        <h1 class="rise d1">
+          <span class="line">Helping people</span>
+          <span class="line">sell with <span class="hl">confidence</span></span>
+          <span class="line">and close with class.</span>
+        </h1>
+        <p class="lead rise d2">Keynotes, workshops and one-on-one coaching for sales teams and professionals who want to communicate clearly, build real trust, and turn conversations into commitments.</p>
+        <div class="hero-cta rise d3">
+          <a class="btn" href="#contact">Book Wilson to speak <span class="arrow" aria-hidden="true">→</span></a>
+          <a class="btn btn-light" href="#gifts">Shop closing gifts</a>
+        </div>
+        <p class="now-booking rise d3">Now booking · conferences, teams &amp; workshops</p>
+      </div>
+      <span class="scroll-cue">Scroll</span>
+    </section>
 
-<main id="top">
-  <!-- HERO -->
-  <section class="hero">
-    <div class="wrap hero-grid">
-      <div>
-        <span class="eyebrow">Public Speaker · Sales Coach</span>
-        <h1>Helping people <em>sell with confidence</em> and close with class.</h1>
-        <p class="lead">Keynotes, workshops and one-on-one coaching for sales teams and professionals who want to communicate clearly, build real trust, and turn conversations into commitments.</p>
-        <div class="actions">
-          <a class="btn btn-primary" href="#contact">Book Wilson to speak</a>
-          <a class="btn btn-ghost" href="#gifts">Shop closing gifts</a>
+    <div class="marquee-wrap" aria-hidden="true">
+      <div class="marquee">
+        <div class="marquee-track">
+          <span>Keynotes</span><span>Workshops</span><span>Sales coaching</span><span>Closing gifts</span><span>Conferences</span><span>Team training</span>
+          <span>Keynotes</span><span>Workshops</span><span>Sales coaching</span><span>Closing gifts</span><span>Conferences</span><span>Team training</span>
         </div>
       </div>
-      <div class="hero-photo">
-        <img src="images/wilson-speaking.jpg" srcset="images/wilson-speaking-1000.jpg 1000w, images/wilson-speaking.jpg 2000w" sizes="(max-width: 860px) 100vw, 600px" width="2000" height="1333" alt="Wilson Wong speaking to an audience at a live event" fetchpriority="high">
-        <div class="badge"><b>Now booking</b>Conferences, teams &amp; workshops</div>
-      </div>
     </div>
-  </section>
 
-  <!-- SPEAKING -->
-  <section id="speaking">
-    <div class="wrap">
-      <span class="eyebrow">Speaking</span>
-      <h2>Talks that move people to act</h2>
-      <p class="lead">Practical, high-energy sessions tailored to your audience, from new hires to seasoned sales leaders.</p>
-      <div class="grid-3">
-        <article class="card">
-          <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 0 0-3 3v6a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"/><path d="M19 10v1a7 7 0 0 1-14 0v-1M12 18v4"/></svg></div>
-          <h3>The Confident Close</h3>
-          <p>How to ask for the decision without pressure, and why the best closers spend most of their time listening.</p>
-        </article>
-        <article class="card">
-          <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
-          <h3>Trust Is the Strategy</h3>
-          <p>Building relationships that turn one-time buyers into lifelong referrers, and why follow-up matters more than first impressions.</p>
-        </article>
-        <article class="card">
-          <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg></div>
-          <h3>Resilience in Sales</h3>
-          <p>Handling rejection, staying consistent, and building the daily habits that compound into long-term results.</p>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <!-- COACHING -->
-  <section id="coaching" class="coaching">
-    <div class="wrap">
-      <span class="eyebrow">Coaching</span>
-      <h2>Coaching built around your goals</h2>
-      <p class="lead">Whether you're new to sales or leading a team, we'll build a plan that fits how you sell.</p>
-      <div class="grid-3">
-        <article class="card">
-          <span class="tag">For individuals</span>
-          <h3>1:1 Sales Coaching</h3>
-          <p>Personalised sessions covering prospecting, presentations, objection handling and closing, with accountability between calls.</p>
-        </article>
-        <article class="card">
-          <span class="tag">For teams</span>
-          <h3>Team Workshops</h3>
-          <p>Interactive half-day or full-day trainings with role-play, real scenarios, and takeaways your team can use the next morning.</p>
-        </article>
-        <article class="card">
-          <span class="tag">For leaders</span>
-          <h3>Leadership Intensives</h3>
-          <p>Help managers coach their own reps, run better meetings, and build a culture where people want to perform.</p>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <!-- CUTCO CLOSING GIFTS -->
-  <section id="gifts" class="gifts">
-    <div class="wrap">
-      <div class="gift-head">
-        <div>
-          <span class="eyebrow">Cutco Closing Gifts</span>
-          <h2>A thank-you they'll use every day</h2>
-          <p class="lead">Perfect for realtors, mortgage brokers, financial advisors and anyone who wants to thank clients after a big decision. Cutco is made in the USA, backed by a Forever Guarantee, and can be engraved with your name or logo.</p>
-        </div>
-        <div class="gift-cta">
-          <a class="btn btn-primary" href="/sharp/" target="_blank" rel="noopener">Build your gift quote<span class="sr-only"> (opens in a new tab)</span></a>
-          <a class="btn btn-ghost" href="#contact">Request a quote</a>
+    <section class="section" aria-label="Explore">
+      <div class="container">
+        <div class="doors">
+          <a class="door door-speak reveal" href="#speaking">
+            <img src="images/photos/book-stage.webp" width="572" height="668" alt="Wilson Wong on stage in front of his book, Fun Is My Favourite F-Word">
+            <span class="door-copy">
+              <span class="door-title">Speaking <span class="arrow" aria-hidden="true">→</span></span>
+              <span class="door-line">Talks that move people to act.</span>
+            </span>
+          </a>
+          <a class="door door-coach reveal d1" href="#coaching">
+            <img src="images/photos/workshop-office.webp" width="732" height="585" alt="Wilson Wong leading a workshop, with people seated at tables">
+            <span class="door-copy">
+              <span class="door-title">Coaching <span class="arrow" aria-hidden="true">→</span></span>
+              <span class="door-line">A plan that fits how you sell.</span>
+            </span>
+          </a>
+          <a class="door door-gifts reveal d2" href="#gifts">
+            <span class="door-copy">
+              <span class="door-title">Closing gifts <span class="arrow" aria-hidden="true">→</span></span>
+              <span class="door-line">A thank-you they'll use every day.</span>
+            </span>
+          </a>
         </div>
       </div>
+    </section>
 
-      <div class="grid-3">
-        <article class="card gift">
-          <span class="tier">Essentials</span>
-          <h3>Everyday Favourite</h3>
-          <ul>
-            <li>A single, versatile kitchen knife</li>
-            <li>Gift box included</li>
-            <li>Great for volume and repeat gifting</li>
-          </ul>
-          <a class="btn btn-ghost" href="#contact">Enquire</a>
-        </article>
-        <article class="card gift featured">
-          <span class="tier">Signature</span>
-          <h3>Kitchen Starter Set</h3>
-          <ul>
-            <li>A curated set for a new home</li>
-            <li>Personal engraving available</li>
-            <li>The classic closing-day gift</li>
-          </ul>
-          <a class="btn btn-primary" href="#contact">Enquire</a>
-        </article>
-        <article class="card gift">
-          <span class="tier">Premium</span>
-          <h3>Heirloom Collection</h3>
-          <ul>
-            <li>A full block set for top clients</li>
-            <li>Custom logo engraving</li>
-            <li>Built to be handed down</li>
-          </ul>
-          <a class="btn btn-ghost" href="#contact">Enquire</a>
-        </article>
-      </div>
-
-      <div class="steps">
-        <div><h3>Choose</h3><p>Tell me your budget and how many clients you're gifting this year.</p></div>
-        <div><h3>Personalise</h3><p>Add engraving with your name, brokerage, or a personal message.</p></div>
-        <div><h3>Deliver</h3><p>Gifts are shipped to you or straight to your client.</p></div>
-      </div>
-      <p class="disclaimer">Cutco® is a registered trademark of Cutco Corporation. Wilson Wong is an independent Cutco representative.</p>
-    </div>
-  </section>
-
-  <!-- TESTIMONIALS -->
-  <section id="about">
-    <div class="wrap about-grid">
-      <div>
-        <span class="eyebrow">About Wilson</span>
-        <h2>Real-world sales experience, delivered with energy.</h2>
-      </div>
-      <div>
-        <p class="lead">[Placeholder bio] Wilson Wong is a public speaker and sales coach who started out selling face-to-face, one conversation at a time. Today he helps teams and individuals build the confidence, communication skills and habits that lead to consistent results.</p>
-        <ul class="pillars">
-          <li><b>Practical, not theoretical.</b> Every session is built on techniques used in real sales conversations.</li>
-          <li><b>People first.</b> Great selling starts with genuinely caring about the person across the table.</li>
-          <li><b>Built to last.</b> Habits and systems that keep working long after the event ends.</li>
-        </ul>
-      </div>
-    </div>
-    <div class="wrap">
-      <div class="grid-3">
-        <article class="card"><blockquote><p>"Placeholder: add a real testimonial from an event organiser here."</p><footer><b>Name Surname</b>Event organiser, Company</footer></blockquote></article>
-        <article class="card"><blockquote><p>"Placeholder: add a real testimonial from a coaching client here."</p><footer><b>Name Surname</b>Sales professional</footer></blockquote></article>
-        <article class="card"><blockquote><p>"Placeholder: add a real testimonial from a closing-gift client here."</p><footer><b>Name Surname</b>Realtor, Brokerage</footer></blockquote></article>
-      </div>
-    </div>
-  </section>
-
-  <!-- CONTACT CTA -->
-  <section id="contact" class="contact">
-    <div class="wrap">
-      <div class="cta">
-        <div>
-          <span class="eyebrow">Get in touch</span>
-          <h2>Ready to work together?</h2>
-          <p class="lead">Book a keynote, start coaching, or order closing gifts for your clients. Reach out and I'll get back to you within one business day.</p>
+    <section class="section flush" id="speaking">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow">Speaking</span>
+          <h2>Talks that move people to act</h2>
+          <p class="lead">Practical, high-energy sessions tailored to your audience, from new hires to seasoned sales leaders.</p>
+          <p class="book-note">His book is <cite>Fun Is My Favourite F-Word</cite>.</p>
         </div>
-        <div class="cta-methods">
+        <div class="cards talks">
+          <article class="card talk reveal">
+            <h3>The Confident Close</h3>
+            <p>How to ask for the decision without pressure, and why the best closers spend most of their time listening.</p>
+          </article>
+          <article class="card talk reveal d1">
+            <h3>Trust Is the Strategy</h3>
+            <p>Building relationships that turn one-time buyers into lifelong referrers, and why follow-up matters more than first impressions.</p>
+          </article>
+          <article class="card talk reveal d2">
+            <h3>Resilience in Sales</h3>
+            <p>Handling rejection, staying consistent, and building the daily habits that compound into long-term results.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section band" id="coaching">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow">Coaching</span>
+          <h2>Coaching built around your goals</h2>
+          <p class="lead">Whether you're new to sales or leading a team, we'll build a plan that fits how you sell.</p>
+        </div>
+        <div class="cards talks">
+          <article class="card talk reveal">
+            <span class="tag">For individuals</span>
+            <h3>1:1 Sales Coaching</h3>
+            <p>Personalised sessions covering prospecting, presentations, objection handling and closing, with accountability between calls.</p>
+          </article>
+          <article class="card talk feature reveal d1">
+            <span class="tag">For teams</span>
+            <h3>Team Workshops</h3>
+            <p>Interactive half-day or full-day trainings with role-play, real scenarios, and takeaways your team can use the next morning.</p>
+          </article>
+          <article class="card talk reveal d2">
+            <span class="tag">For leaders</span>
+            <h3>Leadership Intensives</h3>
+            <p>Help managers coach their own reps, run better meetings, and build a culture where people want to perform.</p>
+          </article>
+        </div>
+        <figure class="wide-photo reveal">
+          <img src="images/photos/workshop-screen.webp" width="673" height="446" alt="Wilson Wong presenting to a seated room" loading="lazy" decoding="async">
+          <figcaption>Workshops</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="section gifts" id="gifts">
+      <div class="container">
+        <div class="gift-head">
+          <div>
+            <span class="eyebrow">Cutco Closing Gifts</span>
+            <h2>A thank-you they'll use every day</h2>
+            <p class="lead">Perfect for realtors, mortgage brokers, financial advisors and anyone who wants to thank clients after a big decision. Cutco is made in the USA, backed by a Forever Guarantee, and can be engraved with your name or logo.</p>
+          </div>
+          <div class="gift-cta">
+            <a class="btn" href="/sharp/" target="_blank" rel="noopener">Build your gift quote<span class="sr-only"> (opens in a new tab)</span></a>
+            <a class="btn btn-ghost" href="#contact">Request a quote</a>
+          </div>
+        </div>
+
+        <div class="cards gifts-grid">
+          <article class="card gift">
+            <span class="tier">Essentials</span>
+            <h3>Everyday Favourite</h3>
+            <ul>
+              <li>A single, versatile kitchen knife</li>
+              <li>Gift box included</li>
+              <li>Great for volume and repeat gifting</li>
+            </ul>
+            <a class="btn btn-ghost" href="#contact">Enquire</a>
+          </article>
+          <article class="card gift featured">
+            <span class="tier">Signature</span>
+            <h3>Kitchen Starter Set</h3>
+            <ul>
+              <li>A curated set for a new home</li>
+              <li>Personal engraving available</li>
+              <li>The classic closing-day gift</li>
+            </ul>
+            <a class="btn" href="#contact">Enquire</a>
+          </article>
+          <article class="card gift">
+            <span class="tier">Premium</span>
+            <h3>Heirloom Collection</h3>
+            <ul>
+              <li>A full block set for top clients</li>
+              <li>Custom logo engraving</li>
+              <li>Built to be handed down</li>
+            </ul>
+            <a class="btn btn-ghost" href="#contact">Enquire</a>
+          </article>
+        </div>
+
+        <div class="steps">
+          <div class="step"><h3>Choose</h3><p>Tell me your budget and how many clients you're gifting this year.</p></div>
+          <div class="step"><h3>Personalise</h3><p>Add engraving with your name, brokerage, or a personal message.</p></div>
+          <div class="step"><h3>Deliver</h3><p>Gifts are shipped to you or straight to your client.</p></div>
+        </div>
+        <p class="disclaimer">Cutco® is a registered trademark of Cutco Corporation. Wilson Wong is an independent Cutco representative.</p>
+      </div>
+    </section>
+
+    <section class="section about" id="about">
+      <div class="container">
+        <div class="split">
+          <figure class="portrait">
+            <img src="images/photos/portrait.webp" width="1200" height="1600" alt="Wilson Wong sitting on a café counter, smiling" loading="lazy" decoding="async">
+          </figure>
+          <div>
+            <span class="eyebrow">About Wilson</span>
+            <h2>Real-world sales experience, delivered with energy.</h2>
+            <p class="lead">[Placeholder bio] Wilson Wong is a public speaker and sales coach who started out selling face-to-face, one conversation at a time. Today he helps teams and individuals build the confidence, communication skills and habits that lead to consistent results.</p>
+            <ul class="checks">
+              <li><span><b>Practical, not theoretical.</b> Every session is built on techniques used in real sales conversations.</span></li>
+              <li><span><b>People first.</b> Great selling starts with genuinely caring about the person across the table.</span></li>
+              <li><span><b>Built to last.</b> Habits and systems that keep working long after the event ends.</span></li>
+            </ul>
+          </div>
+        </div>
+        <div class="quotes">
+          <figure class="quote"><blockquote>Placeholder: add a real testimonial from an event organiser here.</blockquote><figcaption><strong>Name Surname</strong>Event organiser, Company</figcaption></figure>
+          <figure class="quote"><blockquote>Placeholder: add a real testimonial from a coaching client here.</blockquote><figcaption><strong>Name Surname</strong>Sales professional</figcaption></figure>
+          <figure class="quote"><blockquote>Placeholder: add a real testimonial from a closing-gift client here.</blockquote><figcaption><strong>Name Surname</strong>Realtor, Brokerage</figcaption></figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="section gallery" id="gallery">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow">Gallery</span>
+          <h2>On stage and on air</h2>
+        </div>
+        <div class="press">
+          <figure class="g-item">
+            <button class="g-open" type="button" data-src="images/photos/on-camera.webp" data-alt="Wilson Wong smiling while being interviewed by a television camera outdoors" data-caption="On camera" aria-label="Enlarge photo: On camera">
+              <img src="images/photos/on-camera.webp" width="1400" height="933" alt="" loading="lazy" decoding="async">
+            </button>
+            <figcaption>On camera</figcaption>
+          </figure>
+          <figure class="g-item">
+            <button class="g-open" type="button" data-src="images/photos/on-air.webp" data-alt="Wilson Wong on air in a studio with 630 CHED signage" data-caption="On air at 630 CHED" aria-label="Enlarge photo: On air at 630 CHED">
+              <img src="images/photos/on-air.webp" width="782" height="474" alt="" loading="lazy" decoding="async">
+            </button>
+            <figcaption>On air at 630 CHED</figcaption>
+          </figure>
+          <figure class="g-item">
+            <button class="g-open" type="button" data-src="images/photos/podium.webp" data-alt="Wilson Wong speaking at a podium, with a crowd behind him" data-caption="At the podium" aria-label="Enlarge photo: At the podium">
+              <img src="images/photos/podium.webp" width="1323" height="737" alt="" loading="lazy" decoding="async">
+            </button>
+            <figcaption>At the podium</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="section contact" id="contact">
+      <div class="container">
+        <span class="eyebrow">Get in touch</span>
+        <h2>Ready to work together?</h2>
+        <p class="lead">Book a keynote, start coaching, or order closing gifts for your clients. Reach out and I'll get back to you within one business day.</p>
+        <div class="method-row">
           <a class="method" href="tel:+17809150982">
-            <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg></span>
-            <div><small>Call or text</small><span>780-915-0982</span></div>
+            <span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg></span>
+            <span><small>Call or text</small><span class="value">780-915-0982</span></span>
           </a>
           <a class="method" href="mailto:executive.wilsonwong@gmail.com">
-            <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg></span>
-            <div><small>Email</small><span>executive.wilsonwong@gmail.com</span></div>
+            <span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg></span>
+            <span><small>Email</small><span class="value">executive.wilsonwong@gmail.com</span></span>
           </a>
           <a class="method" href="#contact">
-            <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></span>
-            <div><small>Book a call</small><span class="todo">Booking link coming soon</span></div>
+            <span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></span>
+            <span><small>Book a call</small><span class="value todo">Booking link coming soon</span></span>
           </a>
         </div>
       </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p class="footer-big" aria-hidden="true">Wilson<br><span>Wong</span></p>
+      <div class="footer-grid">
+        <div>
+          <p class="footer-label">Wilson Wong</p>
+          <p>Public speaker and sales coach.</p>
+          <p><a href="tel:+17809150982">780-915-0982</a><br><a href="mailto:executive.wilsonwong@gmail.com">executive.wilsonwong@gmail.com</a></p>
+        </div>
+        <div>
+          <p class="footer-label">Explore</p>
+          <ul>
+            <li><a href="#speaking">Speaking</a></li>
+            <li><a href="#coaching">Coaching</a></li>
+            <li><a href="#gifts">Closing gifts</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#gallery">Gallery</a></li>
+          </ul>
+        </div>
+        <div>
+          <p class="footer-label">Work together</p>
+          <ul>
+            <li><a href="#contact">Book Wilson</a></li>
+            <li><a href="#gifts">Closing gifts</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© <span id="year"></span> Wilson Wong. All rights reserved.</span>
+        <span>Speaker · Sales Coach · Closing Gifts</span>
+      </div>
     </div>
-  </section>
-</main>
+  </footer>
 
-<footer class="site-footer">
-  <div class="wrap">
-    <span>© <span id="year"></span> Wilson Wong. All rights reserved.</span>
-    <span>Speaker · Sales Coach · Closing Gifts</span>
+  <a class="btn fab hide" href="#contact">Book Wilson</a>
+
+  <div class="lightbox" id="lightbox" hidden>
+    <button class="lb-close" type="button" aria-label="Close">×</button>
+    <button class="lb-prev" type="button" aria-label="Previous photo">‹</button>
+    <img alt="">
+    <button class="lb-next" type="button" aria-label="Next photo">›</button>
+    <p></p>
   </div>
-</footer>
 
-<script>
-  document.getElementById('year').textContent = new Date().getFullYear();
-</script>
+  <script src="assets/js/main.js"></script>
 </body>
 </html>
