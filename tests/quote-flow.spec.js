@@ -311,28 +311,31 @@ async function runFlow(page, width) {
   expect(bodies.find((body) => body.event === "page_view").giftingType).toBe("");
 }
 
-test("home page opens the quote builder in a new tab", async ({ page }) => {
+test("closing gifts page opens the quote builder in a new tab", async ({ page }) => {
+  await page.setViewportSize({ width: 1280, height: 900 });
+  await page.goto("/closing-gifts.html");
+  const links = page.locator('a[href="/sharp/"]');
+  await expect(links).toHaveCount(3);
+  for (let i = 0; i < 3; i++) {
+    const link = links.nth(i);
+    await expect(link).toHaveAttribute("target", "_blank");
+    await expect(link).toHaveAttribute("rel", "noopener");
+    await expect(link).toContainText("Build your gift quote");
+  }
+  const secondary = page.locator(".quote-panel .btn-ghost");
+  await expect(secondary).toHaveCount(2);
+  await expect(secondary.first()).toHaveAttribute("href", "/contact.html");
+  await expect(secondary.first()).toContainText("Request a quote");
+  await expect(page.locator("body")).not.toContainText(/\$\s?\d/);
+  await noSidewaysScroll(page);
+
   await page.setViewportSize({ width: 390, height: 844 });
-  await page.goto("/");
-  const link = page.locator('a[href="/sharp/"]');
-  await expect(link).toHaveCount(1);
-  await expect(link).toHaveAttribute("target", "_blank");
-  await expect(link).toHaveAttribute("rel", "noopener");
-  await expect(link).toContainText("Build your gift quote");
+  await page.goto("/contact.html");
   const contact = page.locator("#contact");
   await expect(contact.locator('a[href="tel:+17809150982"]')).toContainText("780-915-0982");
   await expect(contact.locator('a[href="mailto:executive.wilsonwong@gmail.com"]')).toContainText("executive.wilsonwong@gmail.com");
   await expect(contact).toContainText("Booking link coming soon");
-  await contact.scrollIntoViewIfNeeded();
   await noSidewaysScroll(page);
-  await shot(page, "home-contact-390.png");
-  await page.setViewportSize({ width: 1280, height: 900 });
-  await page.goto("/");
-  const gifts = page.locator("#gifts");
-  await gifts.scrollIntoViewIfNeeded();
-  await expect(gifts.locator('a[href="/sharp/"]')).toBeVisible();
-  await noSidewaysScroll(page);
-  await gifts.screenshot({ path: "/opt/cursor/artifacts/home-gift-cta-1280.png" });
 });
 
 for (const width of [1280, 390]) {
