@@ -3,7 +3,7 @@ const fs = require("fs");
 const path = require("path");
 
 const ARTIFACTS = "/opt/cursor/artifacts";
-const GREETING = "What are you looking for today? Are you looking for access to Wilson? Or are you looking for public speaking? Are you looking for coaching? Or most importantly, are you looking for closing gifts?";
+const GREETING = "What are you looking for today? Are you looking to contact Wilson? Or are you looking for public speaking? Are you looking for coaching? Or most importantly, are you looking for closing gifts?";
 const WILSON_NOTE = "That's Wilson's department. Leave your name and how to reach you, and I'll let Wilson know so he can get back to you.";
 const FORMSUBMIT = "https://formsubmit.co/ajax/executive.wilsonwong@gmail.com";
 
@@ -42,6 +42,9 @@ test("Dee Dee is on every page and stays rule-based", async ({ page }) => {
   const src = fs.readFileSync(path.join(__dirname, "../assets/js/chat-widget.js"), "utf8");
   expect(src).toMatch(/var CHAT_ENDPOINT = ""/);
   expect(src).toMatch(/function getReply\(/);
+  expect(src).toContain('subject: "Contact Wilson enquiry"');
+  expect(src).not.toMatch(/Access to Wilson/);
+  expect(src).not.toMatch(/access to Wilson/);
   expect(src).not.toMatch(/api[_-]?key\s*[:=]\s*["'][A-Za-z0-9]/i);
 
   await page.setViewportSize({ width: 1280, height: 900 });
@@ -63,7 +66,7 @@ test("desktop home: greeting, choices, gifts follow-up, and order steps", async 
   await expect(page.locator(".dd-panel img")).toHaveCount(0);
   await expect(page.locator("#dd-greeting")).toHaveText(GREETING);
   await expect(page.locator("#dd-replies button")).toHaveText([
-    "Access to Wilson",
+    "Contact Wilson",
     "Public speaking",
     "Coaching",
     "Closing gifts"
@@ -141,7 +144,7 @@ test("quote opens in a new tab and packages go to closing gifts", async ({ page 
   await expect(page).toHaveURL(/\/closing-gifts\.html$/);
 });
 
-test("speaking, coaching, and access let Wilson know", async ({ page }) => {
+test("speaking, coaching, and contact let Wilson know", async ({ page }) => {
   let payload = null;
   await page.route("https://formsubmit.co/**", async (route) => {
     payload = JSON.parse(route.request().postData() || "{}");
@@ -157,10 +160,12 @@ test("speaking, coaching, and access let Wilson know", async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto("/");
   await openChat(page);
-  await page.getByRole("button", { name: "Access to Wilson" }).click();
+  await page.getByRole("button", { name: "Contact Wilson" }).click();
+  await expect(page.locator(".dd-user").last()).toContainText("Contact Wilson");
   await expect(page.locator(".dd-live .dd-bot").last()).toContainText(WILSON_NOTE);
   await expect(page.locator("#dd-topic")).toHaveValue("access");
   await expect(page.locator('.dd-bubble a[href="/contact.html"]')).toBeVisible();
+  await expect(page.locator("#dd-panel")).not.toContainText(/access to Wilson/i);
 
   await page.evaluate(() => sessionStorage.setItem("ww-dd-open", "0"));
   await page.goto("/");

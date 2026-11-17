@@ -28,7 +28,7 @@
   var FORMSUBMIT_URL = "https://formsubmit.co/ajax/executive.wilsonwong@gmail.com";
   var OPEN_KEY = "ww-dd-open";
   var NUDGE_KEY = "ww-dd-nudged";
-  var GREETING = "What are you looking for today? Are you looking for access to Wilson? Or are you looking for public speaking? Are you looking for coaching? Or most importantly, are you looking for closing gifts?";
+  var GREETING = "What are you looking for today? Are you looking to contact Wilson? Or are you looking for public speaking? Are you looking for coaching? Or most importantly, are you looking for closing gifts?";
   var WILSON_NOTE = "That's Wilson's department. Leave your name and how to reach you, and I'll let Wilson know so he can get back to you.";
   var NAV_DELAY = 700;
 
@@ -48,7 +48,7 @@
   var TOPICS = {
     speaking: { subject: "Speaking enquiry", href: "/speaking.html", label: "Speaking page" },
     coaching: { subject: "Coaching enquiry", href: "/coaching.html", label: "Coaching page" },
-    access: { subject: "Access to Wilson enquiry", href: "/contact.html", label: "Contact page" },
+    access: { subject: "Contact Wilson enquiry", href: "/contact.html", label: "Contact page" },
     "closing-gifts": { subject: "Closing gifts question", href: "/closing-gifts.html", label: "Closing gifts page" },
     other: { subject: "Message", href: "/contact.html", label: "Contact page" }
   };
@@ -144,7 +144,7 @@
 
   function starterReplies() {
     return [
-      { label: "Access to Wilson", choice: "access" },
+      { label: "Contact Wilson", choice: "access" },
       { label: "Public speaking", choice: "speaking" },
       { label: "Coaching", choice: "coaching" },
       { label: "Closing gifts", choice: "gifts", primary: true }
