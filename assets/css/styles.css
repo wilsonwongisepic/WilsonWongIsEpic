@@ -315,8 +315,13 @@ p { margin: 0 0 1em; }
   font-size: .78rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
   background: none; position: static;
 }
+.cards.duo { grid-template-columns: repeat(2, 1fr); }
+.hubs { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.hubs a { color: var(--brand); font-weight: 600; text-underline-offset: 3px; }
+.hubs a:hover { color: var(--brand-deep); }
 @media (max-width: 800px) {
-  .cards { grid-template-columns: 1fr; }
+  .cards,
+  .cards.duo { grid-template-columns: 1fr; }
 }
 
 /* ---------- Gifts ---------- */

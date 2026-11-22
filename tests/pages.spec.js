@@ -10,6 +10,7 @@ const PAGES = [
   ["/coaching.html", "coaching"],
   ["/closing-gifts.html", "gifts"],
   ["/about.html", "about"],
+  ["/community.html", "community"],
   ["/contact.html", "contact"]
 ];
 
@@ -33,6 +34,7 @@ test("nav points at separate pages and marks the current one", async ({ page }) 
     "/closing-gifts.html",
     "/about.html",
     "/about.html#gallery",
+    "/community.html",
     "/contact.html"
   ]);
   await expect(page.locator(".doors a")).toHaveCount(3);
@@ -46,6 +48,7 @@ test("nav points at separate pages and marks the current one", async ({ page }) 
     "/coaching.html": "Coaching",
     "/closing-gifts.html": "Closing Gifts",
     "/about.html": "About",
+    "/community.html": "Community",
     "/contact.html": "Book Wilson"
   };
   for (const [href, label] of Object.entries(current)) {
@@ -54,6 +57,36 @@ test("nav points at separate pages and marks the current one", async ({ page }) 
     await expect(page.locator("title")).not.toHaveText("Wilson Wong — Speaker & Sales Coach");
     await noSidewaysScroll(page);
   }
+});
+
+test("community page lists the two hubs and upcoming events", async ({ page }) => {
+  await page.setViewportSize({ width: 1280, height: 900 });
+  await page.goto("/community.html");
+  await expect(page.locator("h1")).toHaveText("Community");
+  await expect(page.locator(".cards.duo .card")).toHaveCount(2);
+  const corgi = page.locator(".cards.duo .card").nth(0);
+  await expect(corgi.locator("h3")).toHaveText("Corgi and cigars");
+  await expect(corgi.locator("p")).toHaveText("If you have a dog and you enjoy cigars and a nice walk, you are more than welcome to come to the Terwilliger Dog Park.");
+  const boa = page.locator(".hubs a").nth(0);
+  const van = page.locator(".hubs a").nth(1);
+  await expect(boa).toContainText("Boa and Hare");
+  await expect(boa).toHaveAttribute("href", "https://boaandhare.ca");
+  await expect(boa).toHaveAttribute("target", "_blank");
+  await expect(boa).toHaveAttribute("rel", "noopener");
+  await expect(van).toContainText("Van Loc");
+  await expect(van).toHaveAttribute("href", "https://vanloc.ca");
+  await expect(van).toHaveAttribute("target", "_blank");
+  await expect(van).toHaveAttribute("rel", "noopener");
+  await expect(page.getByRole("heading", { name: "Edmonton's Chinatown" })).toBeVisible();
+  await expect(page.locator("#events h2")).toHaveText("Community events coming soon");
+  await expect(page.locator("#events .lead")).toHaveText("Stay tuned for upcoming events.");
+  const desktopCols = await page.locator(".cards.duo").evaluate((el) => getComputedStyle(el).gridTemplateColumns.split(" ").length);
+  expect(desktopCols).toBe(2);
+
+  await page.setViewportSize({ width: 390, height: 844 });
+  const mobileCols = await page.locator(".cards.duo").evaluate((el) => getComputedStyle(el).gridTemplateColumns.split(" ").length);
+  expect(mobileCols).toBe(1);
+  await noSidewaysScroll(page);
 });
 
 test("mobile menu opens on an inner page", async ({ page }) => {
