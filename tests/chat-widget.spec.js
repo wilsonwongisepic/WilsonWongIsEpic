@@ -7,7 +7,7 @@ const GREETING = "What are you looking for today? Are you looking to contact Wil
 const WILSON_NOTE = "That's Wilson's department. Leave your name and how to reach you, and I'll let Wilson know so he can get back to you.";
 const FORMSUBMIT = "https://formsubmit.co/ajax/executive.wilsonwong@gmail.com";
 
-const PAGES = ["/", "/speaking.html", "/coaching.html", "/closing-gifts.html", "/about.html", "/community.html", "/contact.html", "/sharp/"];
+const PAGES = ["/", "/speaking.html", "/coaching.html", "/closing-gifts.html", "/about.html", "/community.html", "/sponsorship.html", "/contact.html", "/sharp/"];
 
 function shot(page, name) {
   fs.mkdirSync(ARTIFACTS, { recursive: true });
