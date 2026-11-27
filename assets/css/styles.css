@@ -692,3 +692,145 @@ p { margin: 0 0 1em; }
 .rise.d2 { animation-delay: .16s; }
 .rise.d3 { animation-delay: .24s; }
 @media (prefers-reduced-motion: reduce) { .rise { animation: none; } }
+
+/* ---------- Word of the Year ---------- */
+.page-woty .section { padding-top: clamp(28px, 4vw, 56px); padding-bottom: clamp(48px, 7vw, 88px); }
+.page-woty [hidden] { display: none !important; }
+.woty-panel {
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: clamp(18px, 3vw, 32px);
+  max-width: 720px;
+}
+.woty-progress {
+  display: flex; flex-wrap: wrap; gap: 14px 22px;
+  list-style: none; margin: 0 0 18px; padding: 0;
+}
+.woty-progress li {
+  display: flex; align-items: center; gap: 8px;
+  color: var(--muted); font-size: .82rem; font-weight: 700;
+}
+.woty-progress .dot {
+  width: 12px; height: 12px; border-radius: 50%; flex: none;
+  border: 2px solid var(--brand); background: transparent;
+}
+.woty-progress .is-current { color: var(--brand-deep); }
+.woty-progress .is-current .dot,
+.woty-progress .is-done .dot { background: var(--brand); }
+.woty-panel .form-note { color: var(--muted); font-size: .95rem; margin: 0 0 8px; min-height: 1.2em; }
+.woty-step { border: 0; margin: 0; padding: 0; min-width: 0; }
+.woty-step h2 { font-size: clamp(1.45rem, 2vw, 2rem); margin-bottom: .4em; }
+.woty-help { color: var(--muted); margin: 0 0 16px; }
+.woty-form { display: grid; gap: 14px; }
+.woty-form .field { display: grid; gap: 6px; min-width: 0; }
+.woty-form .field > span,
+.woty-label { font-weight: 600; font-size: .92rem; }
+.woty-label { display: flex; justify-content: space-between; gap: 12px; align-items: baseline; }
+.woty-form .optional,
+.woty-count,
+.woty-hint { font-weight: 500; color: var(--muted); }
+.woty-hint { font-size: .85rem; }
+.woty-count { font-size: .8rem; font-variant-numeric: tabular-nums; }
+.woty-form input:not([type="checkbox"]),
+.woty-form textarea {
+  width: 100%; max-width: 100%; border: 1px solid var(--line); background: var(--white);
+  border-radius: 12px; padding: 12px 14px; font: inherit; color: inherit;
+}
+.woty-word-input {
+  font-family: var(--display); font-size: clamp(1.35rem, 2vw, 1.7rem); font-weight: 600;
+  letter-spacing: -0.02em; text-transform: uppercase;
+}
+.woty-form textarea { min-height: 96px; resize: vertical; }
+.woty-form .err { color: #8a2e2e; font-size: .85rem; min-height: 1.1em; }
+.woty-form input[aria-invalid="true"],
+.woty-form textarea[aria-invalid="true"] { border-color: #8a2e2e; }
+.woty-example {
+  margin: 0 0 16px; padding: 12px 14px;
+  background: var(--cream); border-left: 3px solid var(--accent); border-radius: 0 12px 12px 0;
+}
+.woty-check { display: flex; gap: 10px; align-items: flex-start; font-weight: 600; font-size: .95rem; }
+.woty-check input { width: 18px; height: 18px; margin-top: 4px; accent-color: var(--brand); flex: none; }
+.woty-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 4px; }
+.woty-form .btn[disabled] { opacity: .55; cursor: wait; transform: none; }
+.woty-preview {
+  background: var(--cream); border-radius: 16px; padding: clamp(22px, 4vw, 36px) clamp(18px, 3vw, 32px);
+  text-align: center;
+}
+.woty-preview-kicker {
+  margin: 0 0 10px; color: var(--accent); font-family: var(--display);
+  font-style: italic; font-size: 1.05rem;
+}
+.woty-preview-word {
+  margin: 0; font-family: var(--display); font-weight: 600; line-height: .95;
+  font-size: clamp(2.4rem, 10vw, 4.6rem); letter-spacing: -0.03em; text-transform: uppercase;
+  color: var(--brand-deep); overflow-wrap: anywhere;
+}
+.woty-rule { width: 88px; height: 2px; background: var(--accent); margin: 18px auto 6px; }
+.woty-preview h3 {
+  font-family: var(--body); font-size: .75rem; font-weight: 700; letter-spacing: .16em;
+  text-transform: uppercase; color: var(--brand); margin: 18px 0 6px;
+}
+.woty-preview p { margin: 0 auto; max-width: 46ch; }
+.woty-preview-foot {
+  margin-top: 22px !important; font-size: .82rem; font-weight: 700; letter-spacing: .08em;
+  color: var(--brand-deep);
+}
+.woty-inbox { margin: 20px 0 0; font-size: 1.05rem; }
+.woty-community { margin-top: 48px; }
+.woty-community h2 { font-size: clamp(1.6rem, 2vw, 2.2rem); }
+.woty-marquee { overflow: hidden; width: 100%; max-width: 100%; margin-top: 8px; }
+.woty-marquee.is-animated {
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent);
+}
+.woty-track { display: flex; width: max-content; animation: woty-scroll 42s linear infinite; }
+.woty-set { display: flex; gap: 14px; padding-right: 14px; }
+.woty-marquee:hover .woty-track,
+.woty-marquee:focus-within .woty-track { animation-play-state: paused; }
+.woty-card {
+  width: 260px; flex: none; background: var(--white);
+  border: 1px solid var(--line); border-top: 3px solid var(--brand);
+  border-radius: 16px; padding: 16px 16px 14px;
+  display: flex; flex-direction: column; gap: 6px;
+}
+.woty-card-tag {
+  margin: 0; font-size: .68rem; font-weight: 700; letter-spacing: .14em;
+  text-transform: uppercase; color: var(--accent);
+}
+.woty-card-word {
+  margin: 0; font-family: var(--display); font-weight: 600; font-size: 1.7rem;
+  line-height: .95; letter-spacing: -0.03em; text-transform: uppercase;
+  color: var(--brand-deep); overflow-wrap: anywhere;
+}
+.woty-card-name {
+  margin: 0; font-size: .72rem; font-weight: 700; letter-spacing: .14em;
+  text-transform: uppercase; color: var(--accent);
+}
+.woty-card-label {
+  margin: 8px 0 0; font-size: .68rem; font-weight: 700; letter-spacing: .12em;
+  text-transform: uppercase; color: var(--brand);
+}
+.woty-card-text {
+  margin: 0; color: var(--muted); font-size: .92rem;
+  display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
+}
+@keyframes woty-scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+@media (prefers-reduced-motion: reduce) {
+  .woty-track { animation: none !important; transform: none !important; }
+  .woty-marquee { overflow-x: auto; }
+}
+@media print {
+  body.page-woty { background: #f6f0e3 !important; }
+  body.page-woty .site-header,
+  body.page-woty .site-footer,
+  body.page-woty .woty-progress,
+  body.page-woty .woty-community,
+  body.page-woty .section-head,
+  body.page-woty #woty-inbox,
+  body.page-woty #woty-download,
+  body.page-woty .skip,
+  body.page-woty .fab { display: none !important; }
+  body.page-woty .section { padding: 0; }
+  body.page-woty .woty-panel { border: 0; background: transparent; max-width: none; }
+}

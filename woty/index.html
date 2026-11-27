@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Word of the Year — Wilson Wong</title>
+  <meta name="description" content="Choose a word for 2026, write a mission and a vision, and get a one-page PDF from Wilson Wong.">
+  <link rel="canonical" href="https://wilsonwongisepic.com/woty">
+  <meta name="theme-color" content="#1d4634">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Word of the Year — Wilson Wong">
+  <meta property="og:description" content="Choose a word for 2026, write a mission and a vision, and get a one-page PDF.">
+  <meta property="og:url" content="https://wilsonwongisepic.com/woty">
+  <meta property="og:image" content="https://wilsonwongisepic.com/images/photos/stage-mic-1100.webp">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/css/styles.css">
+  <link rel="stylesheet" href="/assets/css/chat-widget.css">
+</head>
+<body class="page-inner page-woty">
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="site-header" id="site-header">
+    <nav class="container nav" aria-label="Main">
+      <a class="logo" href="/">Wilson <span>Wong</span></a>
+      <button class="menu-toggle" id="menu-toggle" type="button" aria-expanded="false" aria-controls="nav-links">
+        <span></span><span></span><span></span>
+        <span class="sr-only">Menu</span>
+      </button>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="/speaking.html">Speaking</a></li>
+        <li><a href="/coaching.html">Coaching</a></li>
+        <li><a href="/closing-gifts.html">Closing Gifts</a></li>
+        <li><a href="/about.html">About</a></li>
+        <li><a href="/about.html#gallery">Gallery</a></li>
+        <li><a href="/community.html">Community</a></li>
+        <li><a href="/sponsorship.html">Sponsorship</a></li>
+        <li><a class="btn" href="/contact.html">Book Wilson</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="section" id="woty">
+      <div class="container">
+        <div class="section-head">
+          <p class="eyebrow">2026</p>
+          <h1>Word of the Year</h1>
+          <p class="lead">Pick a word for 2026, write the mission and vision that will carry it, and get a one-page PDF.</p>
+        </div>
+
+        <div class="woty-panel">
+          <p class="sr-only" id="woty-step-live" aria-live="polite"></p>
+          <ol class="woty-progress" id="woty-progress">
+            <li data-step="1" class="is-current" aria-current="step"><span class="dot" aria-hidden="true"></span>Word</li>
+            <li data-step="2"><span class="dot" aria-hidden="true"></span>Statements</li>
+            <li data-step="3"><span class="dot" aria-hidden="true"></span>Email</li>
+          </ol>
+          <p class="form-note" id="woty-status" role="status"></p>
+
+          <form class="woty-form" id="woty-form" action="#" method="post" novalidate>
+            <div class="hp-field" aria-hidden="true">
+              <label for="woty-company">Company</label>
+              <input id="woty-company" name="company" type="text" tabindex="-1" autocomplete="off">
+            </div>
+
+            <fieldset class="woty-step" id="woty-step-1">
+              <h2>What is your word of the year?</h2>
+              <p class="woty-help" id="woty-help">A word that will inspire you when you're feeling down, and a word that will humble you when you're being overzealous.</p>
+              <label class="field">
+                <span>Word</span>
+                <input id="woty-word" name="word" class="woty-word-input" autocomplete="off" autocapitalize="characters" spellcheck="false" maxlength="40" aria-describedby="woty-help" required>
+                <small class="err" id="woty-word-error"></small>
+              </label>
+              <label class="field">
+                <span>First name <span class="optional">(optional)</span></span>
+                <input id="woty-name" name="firstName" autocomplete="given-name" maxlength="40">
+                <small class="woty-hint">Used on your PDF and, if you choose, the community scroll. For example, Wilson's 2026 WOTY is CELEBRATE.</small>
+                <small class="err" id="woty-name-error"></small>
+              </label>
+              <div class="woty-actions">
+                <button class="btn" type="button" id="woty-next-1">Continue</button>
+              </div>
+            </fieldset>
+
+            <fieldset class="woty-step" id="woty-step-2" hidden>
+              <h2>What is your mission statement for your word? What is your vision statement?</h2>
+              <p class="woty-example" id="woty-example">Example: Wilson's 2026 WOTY is CELEBRATE. To celebrate my community, relationships and my personal wins no matter how big or small they are.</p>
+              <label class="field">
+                <span class="woty-label">Mission statement <span class="woty-count" id="woty-mission-count">0 / 300</span></span>
+                <textarea id="woty-mission" name="mission" rows="4" maxlength="300" required></textarea>
+                <small class="err" id="woty-mission-error"></small>
+              </label>
+              <label class="field">
+                <span class="woty-label">Vision statement <span class="woty-count" id="woty-vision-count">0 / 300</span></span>
+                <textarea id="woty-vision" name="vision" rows="4" maxlength="300" required></textarea>
+                <small class="err" id="woty-vision-error"></small>
+              </label>
+              <div class="woty-actions">
+                <button class="btn btn-ghost" type="button" id="woty-back-2">Back</button>
+                <button class="btn" type="button" id="woty-next-2">Continue</button>
+              </div>
+            </fieldset>
+
+            <fieldset class="woty-step" id="woty-step-3" hidden>
+              <h2>Where should Wilson send your page?</h2>
+              <p class="woty-help" id="woty-email-help">Wilson sends the printable page to this address.</p>
+              <label class="field">
+                <span>Email</span>
+                <input id="woty-email" name="email" type="email" autocomplete="email" inputmode="email" maxlength="120" required>
+                <small class="err" id="woty-email-error"></small>
+              </label>
+              <label class="woty-check">
+                <input id="woty-public" name="showPublic" type="checkbox" checked>
+                <span>Show my word and statements in the community scroll (first name only).</span>
+              </label>
+              <div class="woty-actions">
+                <button class="btn btn-ghost" type="button" id="woty-back-3">Back</button>
+                <button class="btn" type="submit" id="woty-submit">Email me my WOTY</button>
+              </div>
+            </fieldset>
+          </form>
+
+          <div id="woty-thanks" hidden>
+            <article class="woty-preview" id="woty-preview" aria-label="Your word of the year">
+              <p class="woty-preview-kicker" id="woty-preview-kicker"></p>
+              <p class="woty-preview-word" id="woty-preview-word"></p>
+              <div class="woty-rule" aria-hidden="true"></div>
+              <h3>Mission</h3>
+              <p id="woty-preview-mission"></p>
+              <h3>Vision</h3>
+              <p id="woty-preview-vision"></p>
+              <p class="woty-preview-foot">wilsonwongisepic.com</p>
+            </article>
+            <p class="woty-inbox" id="woty-inbox">Check your inbox for your printable PDF.</p>
+            <div class="woty-actions">
+              <button class="btn" type="button" id="woty-download">Download PDF</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="woty-community" id="woty-community">
+          <h2>Community scroll</h2>
+          <p class="lead" id="woty-scroll-note">Wilson's word is here as an example. If you leave the box checked, your first name, word, and statements can show here too.</p>
+          <div class="woty-marquee" id="woty-marquee" tabindex="0" aria-label="Community words of the year. Hover or focus to pause.">
+            <div class="woty-track" id="woty-track"></div>
+          </div>
+        </div>
+        <noscript><p>Turn on JavaScript to choose your word and receive the PDF.</p></noscript>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p class="footer-big" aria-hidden="true">Wilson<br><span>Wong</span></p>
+      <div class="footer-grid">
+        <div>
+          <p class="footer-label">Wilson Wong</p>
+          <p>Public speaker and sales coach.</p>
+          <p><a href="tel:+17809150982">780-915-0982</a><br><a href="mailto:executive.wilsonwong@gmail.com">executive.wilsonwong@gmail.com</a></p>
+        </div>
+        <div>
+          <p class="footer-label">Explore</p>
+          <ul>
+            <li><a href="/speaking.html">Speaking</a></li>
+            <li><a href="/coaching.html">Coaching</a></li>
+            <li><a href="/closing-gifts.html">Closing gifts</a></li>
+            <li><a href="/about.html">About</a></li>
+            <li><a href="/about.html#gallery">Gallery</a></li>
+            <li><a href="/community.html">Community</a></li>
+            <li><a href="/sponsorship.html">Sponsorship</a></li>
+          </ul>
+        </div>
+        <div>
+          <p class="footer-label">Work together</p>
+          <ul>
+            <li><a href="/contact.html">Book Wilson</a></li>
+            <li><a href="/closing-gifts.html">Closing gifts</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© <span id="year"></span> Wilson Wong. All rights reserved.</span>
+        <span>Speaker · Sales Coach · Closing Gifts</span>
+      </div>
+    </div>
+  </footer>
+
+  <a class="btn fab hide" href="/contact.html">Book Wilson</a>
+  <script src="/assets/js/main.js"></script>
+  <script src="/assets/js/woty-screen.js"></script>
+  <script src="/assets/js/woty.js"></script>
+  <script src="/assets/js/chat-widget.js"></script>
+</body>
+</html>
