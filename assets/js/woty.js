@@ -1,19 +1,21 @@
 /* Word of the Year.
-   WOTY_ENDPOINT is the Apps Script web app URL (the one ending in /exec).
-   Leave it "" until that app is deployed. An empty value sends the lead
-   through FormSubmit, and the PDF is only the download on this page.
+   WOTY_ENDPOINT is the deployed Apps Script web app (/exec).
+   Fetch follows that app's 302 redirect by default. Do not set custom
+   headers on the POST: a string body is sent as text/plain, which avoids
+   a CORS preflight. An empty string falls back to FormSubmit, and the
+   PDF is only the download on this page.
 */
 (function () {
   var WOTY_YEAR = "2026";
-  var WOTY_ENDPOINT = "";
+  var WOTY_ENDPOINT = "https://script.google.com/macros/s/AKfycbz7y4ouQXVG8HG8UwclTc5SEWTlcmdhiiikSKHdXpzniyRA1nn0hU4zyJgkJG-XC3O7Zg/exec";
   var FORMSUBMIT_URL = "https://formsubmit.co/ajax/executive.wilsonwong@gmail.com";
   var WORD_BLOCK = "Let's pick a word that lifts you up. Please choose a positive word.";
   var STATEMENT_BLOCK = "Let's keep this uplifting. Please rephrase anything harsh.";
   var NAME_BLOCK = "Let's use a first name that can sit beside your word.";
   var SEED_MISSION = "To celebrate my community, relationships and my personal wins no matter how big or small they are.";
 
-  if (typeof window !== "undefined" && window.__WOTY_ENDPOINT) {
-    WOTY_ENDPOINT = String(window.__WOTY_ENDPOINT);
+  if (typeof window !== "undefined" && typeof window.__WOTY_ENDPOINT === "string") {
+    WOTY_ENDPOINT = window.__WOTY_ENDPOINT;
   }
 
   var SEED = {
@@ -211,7 +213,6 @@
   function postScript(payload) {
     return fetch(WOTY_ENDPOINT, {
       method: "POST",
-      headers: { "Content-Type": "text/plain;charset=utf-8" },
       body: JSON.stringify({
         firstName: payload.firstName,
         email: payload.email,
