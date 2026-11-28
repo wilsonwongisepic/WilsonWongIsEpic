@@ -4,7 +4,7 @@ This script is the backend for [wilsonwongisepic.com/woty](https://wilsonwongise
 
 The sheet and the script need to live in **executive.wilsonwong@gmail.com**. MailApp sends the PDF from the account that owns the script.
 
-Until `WOTY_ENDPOINT` in `assets/js/woty.js` has the web app URL, the page still accepts words. Those leads go to executive.wilsonwong@gmail.com through FormSubmit, and the visitor downloads the PDF on the page. Nothing is added to the scroll except Wilson's example.
+`WOTY_ENDPOINT` in `assets/js/woty.js` is the deployed web app. The page follows its redirect and posts as plain text. If that string is emptied, leads go to executive.wilsonwong@gmail.com through FormSubmit, the PDF is only the on-page download, and the scroll shows Wilson's example until a list is available.
 
 ## Deploy
 

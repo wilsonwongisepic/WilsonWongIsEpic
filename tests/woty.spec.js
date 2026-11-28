@@ -1,10 +1,12 @@
 const { test, expect } = require("@playwright/test");
+const http = require("http");
 const fs = require("fs");
 const path = require("path");
 
 const ARTIFACTS = "/opt/cursor/artifacts";
 const FORMSUBMIT = "https://formsubmit.co/ajax/executive.wilsonwong@gmail.com";
 const SCRIPT = "https://script.google.com/macros/s/test/exec";
+const LIVE = "https://script.google.com/macros/s/AKfycbz7y4ouQXVG8HG8UwclTc5SEWTlcmdhiiikSKHdXpzniyRA1nn0hU4zyJgkJG-XC3O7Zg/exec";
 const WORD_BLOCK = "Let's pick a word that lifts you up. Please choose a positive word.";
 const STATEMENT_BLOCK = "Let's keep this uplifting. Please rephrase anything harsh.";
 const NAME_BLOCK = "Let's use a first name that can sit beside your word.";
@@ -47,7 +49,21 @@ async function pauseMarquee(page) {
   });
 }
 
-async function openWoty(page, width) {
+async function blockLive(page) {
+  await page.route(LIVE + "**", async (route) => {
+    if (route.request().method() === "POST") {
+      throw new Error("Refusing to post a test entry to the live Word of the Year endpoint");
+    }
+    await route.fulfill({
+      status: 200,
+      contentType: "application/json",
+      body: JSON.stringify({ ok: true, entries: [] })
+    });
+  });
+}
+
+async function openWoty(page, width, options) {
+  if (!options || options.blockLive !== false) await blockLive(page);
   await page.setViewportSize({ width: width, height: width === 390 ? 844 : 1000 });
   await page.goto("/woty/");
   await expect(page.locator("#woty-form")).toHaveAttribute("data-ready", "true");
@@ -91,6 +107,16 @@ test("word lists in Apps Script match the shared files", () => {
   expect(listFn).toContain("firstName");
   expect(gs).toContain("Utilities.newBlob");
   expect(gs).toContain("application/pdf");
+  const js = fs.readFileSync(path.join(root, "assets/js/woty.js"), "utf8");
+  expect(js).toContain('var WOTY_ENDPOINT = "' + LIVE + '";');
+  const post = js.slice(js.indexOf("function postScript"), js.indexOf("function postForm"));
+  expect(post).toContain('method: "POST"');
+  expect(post).toContain("body: JSON.stringify");
+  expect(post).not.toMatch(/headers\s*:/);
+  expect(post).not.toMatch(/redirect\s*:/);
+  const list = js.slice(js.indexOf("function loadList"), js.indexOf("var motion"));
+  expect(list).toContain("action=list");
+  expect(list).not.toMatch(/redirect\s*:/);
 });
 
 test("screening blocks harsh words and lets ordinary words through", async ({ page }) => {
@@ -123,6 +149,7 @@ test("screening blocks harsh words and lets ordinary words through", async ({ pa
 test("step flow, validation, and blocking", async ({ page }) => {
   let calls = 0;
   let payload = null;
+  await page.addInitScript(() => { window.__WOTY_ENDPOINT = ""; });
   await page.route("https://formsubmit.co/**", async (route) => {
     calls += 1;
     payload = JSON.parse(route.request().postData() || "{}");
@@ -277,6 +304,7 @@ test("step flow, validation, and blocking", async ({ page }) => {
 });
 
 test("mobile steps stay on the page and out of the nav", async ({ page }) => {
+  await page.addInitScript(() => { window.__WOTY_ENDPOINT = ""; });
   await page.route("https://formsubmit.co/**", async (route) => {
     await route.fulfill({ status: 200, contentType: "application/json", body: JSON.stringify({ success: "true" }) });
   });
@@ -380,6 +408,7 @@ test("Apps Script endpoint posts text and lists public words only", async ({ pag
 });
 
 test("the scroll pauses on hover and respects reduced motion", async ({ page }) => {
+  await blockLive(page);
   await page.setViewportSize({ width: 1280, height: 1000 });
   await page.goto("/woty/");
   await expect(page.locator("#woty-form")).toHaveAttribute("data-ready", "true");
@@ -400,7 +429,81 @@ test("the scroll pauses on hover and respects reduced motion", async ({ page }) 
   await noSidewaysScroll(page);
 });
 
+test("deployed endpoint follows the Apps Script redirect and emails the PDF", async ({ page }) => {
+  const redirect = await new Promise((resolve) => {
+    const server = http.createServer((req, res) => {
+      const afterPost = req.url.indexOf("posted=1") !== -1;
+      res.writeHead(200, {
+        "content-type": "application/json",
+        "access-control-allow-origin": "*"
+      });
+      res.end(JSON.stringify(afterPost ? { ok: true, emailed: true, flagged: "" } : { ok: true, entries: [] }));
+    });
+    server.listen(0, "127.0.0.1", () => resolve({ server: server, port: server.address().port }));
+  });
+  let posted = null;
+  let contentType = "";
+  try {
+  await page.route(LIVE + "**", async (route) => {
+    const request = route.request();
+    const postedHop = request.method() === "POST";
+    if (!postedHop) expect(request.url()).toContain("action=list");
+    if (postedHop) {
+      contentType = request.headers()["content-type"] || "";
+      expect(contentType).toMatch(/^text\/plain\b/i);
+      expect(contentType).not.toContain("application/json");
+      expect(request.headers()["authorization"]).toBeUndefined();
+      const accept = request.headers()["accept"] || "";
+      expect(accept).not.toContain("application/json");
+      posted = JSON.parse(request.postData() || "{}");
+    }
+    await route.fulfill({
+      status: 302,
+      headers: {
+        location: "http://127.0.0.1:" + redirect.port + (postedHop ? "/posted=1" : "/list"),
+        "access-control-allow-origin": "*"
+      }
+    });
+  });
+  await page.route("https://formsubmit.co/**", async () => {
+    throw new Error("FormSubmit should not be used when the Apps Script endpoint is set");
+  });
+
+  await openWoty(page, 1280, { blockLive: false });
+  const words = await page.locator(".woty-card-word").allTextContents();
+  expect(words.length).toBeGreaterThan(0);
+  expect(words.every((word) => word.trim() === "CELEBRATE")).toBe(true);
+  await expect(page.locator(".woty-card[data-example='true']").first()).toContainText("Wilson");
+  const endpoint = await page.evaluate(() => window.wotyDebug.endpoint);
+  expect(endpoint).toBe(LIVE);
+
+  await page.locator("#woty-word").fill("Steady");
+  await page.locator("#woty-name").fill("Avery");
+  await page.locator("#woty-next-1").click();
+  await page.locator("#woty-mission").fill(MISSION);
+  await page.locator("#woty-vision").fill(VISION);
+  await page.locator("#woty-next-2").click();
+  await expect(page.locator("#woty-email-help")).toHaveText("Wilson sends the printable page to this address.");
+  await page.locator("#woty-email").fill("avery@example.com");
+  await page.locator("#woty-submit").click();
+
+  await expect(page.locator("#woty-thanks")).toBeVisible();
+  await expect(page.locator("#woty-inbox")).toHaveText("Check your inbox for your printable PDF.");
+  await expect(page.locator("#woty-download")).toBeVisible();
+  await expect(page.locator("#woty-download")).toHaveText("Download PDF");
+  await expect(page.locator("#woty-preview-word")).toHaveText("STEADY");
+  expect(contentType).toMatch(/^text\/plain\b/i);
+  expect(posted.word).toBe("STEADY");
+  expect(posted.email).toBe("avery@example.com");
+  expect(posted.firstName).toBe("Avery");
+  expect(posted.showPublic).toBe(true);
+  } finally {
+    await new Promise((resolve) => redirect.server.close(resolve));
+  }
+});
+
 test("/woty without a trailing slash still opens the page", async ({ page }) => {
+  await blockLive(page);
   await page.goto("/woty");
   await expect(page).toHaveURL(/\/woty\/?$/);
   await expect(page.locator("h1")).toHaveText("Word of the Year");
